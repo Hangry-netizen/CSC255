@@ -1,0 +1,29 @@
+#ifndef __P1_H
+#define __P1_H
+
+#include <string>
+
+class stringList {
+    private:
+	std::string *a;
+	int listCapacity;
+	int listSize;
+
+    public:
+	stringList(int listCapacity = 100);
+	~stringList();
+
+	bool insert(std::string text);
+	bool add(std::string text);
+	bool insertAt(int index, std::string text);
+	bool deleteAt(int index, std::string &text);
+
+	void clear();
+
+	bool readAt(int index, std::string &text) const;
+	int getIndex(std::string text) const;
+	void printIt() const;
+	int count() const;
+};
+
+#endif
