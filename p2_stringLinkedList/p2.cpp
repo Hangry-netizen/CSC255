@@ -1,11 +1,30 @@
+/*
+* Jospeh Song
+* Queena Lee
+* CSC255 Spring 2023
+* Assignment: Program 2a
+*/
+
+//remember to put our names on functions
+
 #include <iostream>
+#include <fstream>
+
 #include "p2.h"
 
 using namespace std;
 
 //******************************************************************************
 
+node::node(std::string text, node *pn) {
+    this->text = text;
+    next = pn;
+}
+
+//******************************************************************************
+
 stringLinkedList::stringLinkedList() {
+    //initialize first, last, and listCount
     first = last = NULL;
     listCount = 0;
 }
@@ -13,20 +32,65 @@ stringLinkedList::stringLinkedList() {
 //******************************************************************************
 
 stringLinkedList::~stringLinkedList() {
+    //delete all nodes
+    clear(first);
+    delete first;
+    delete last;
+}
 
+//******************************************************************************
+
+int stringLinkedList::getIndex(std::string text, node *pn, int index) const {
+    int rc = -1;
+
+    if (pn) {
+        //if list is not empty
+        //returns the first position at which the value was found
+        //otherwise, returns -1
+        if (pn->text == text) {
+            rc = index;
+        } else {
+            rc = getIndex(text, pn->next, index+1);
+        }
+    }
+    return rc;
+}
+
+//******************************************************************************
+
+void stringLinkedList::printIt(node *pn, int index) const {
+    if (pn) {
+        //if index exists within listCount range
+        //print list and recurse function until the end of the list
+        cout << "At pos "<< index << " there is " << pn->text << endl;
+
+        printIt(pn->next, index + 1);
+    }
+}
+
+//******************************************************************************
+
+void stringLinkedList::clear(node *pn) {
+    if (pn) {
+        //if a node exists, go to the end of the list
+        //and delete nodes starting from the end of the list
+        clear(pn->next);
+        delete pn;
+    }
 }
 
 //******************************************************************************
 
 bool stringLinkedList::insert(std::string text) {
-    bool listExist = first;
-
+    //create new node pointing to the value of first
     node *newNode = new node(text, first);
 
-    if (!listExist) {
+    //if there is no existing list, set newNode as last
+    if (!listCount) {
         last = newNode;
     }
-    
+
+    //set newNode as first entry and increment listCount
     first = newNode;
     listCount++;
 
@@ -39,10 +103,11 @@ bool stringLinkedList::add(std::string text) {
     //create new node pointing to null
     node *newNode = new node(text);
 
-    //if there is an existing list, set the pointer of the last node to the newNode
-    //otherwise, let first point to the newNode
+    //if there is an existing list
+    //set the pointer of the last node to the newNode
+    //otherwise, set newNode as first entry as well
     if (last) {
-        last -> next = newNode;
+        last->next = newNode;
     } else {
         first = newNode;
     }
@@ -58,35 +123,129 @@ bool stringLinkedList::add(std::string text) {
 
 bool stringLinkedList::insertAt(int index, std::string text) {
     //determine if index is withtin listCount range (0 <= index <= listCount)
-    bool rc = !((index < 0) || (index > listCount));
+    bool rc = (index >= 0) && (index <= listCount);
 
     if (rc) {
+        node *newNode = new node(text);
         if (index == 0) {
             //if index is 0, insert newNode at the beginning of the list
-            node *newNode = new node(text, first);
+            newNode->next = first;
             first = newNode;
-            
+            if (listCount == 0) {
+                //if list is empty, set newNode as first and last on the list
+                last = first;
+            }
+        } else if (index == listCount) {
+            //if index is the last index, point the last node to newNode
+            //set newNode as last on the list
+            last->next = newNode;
+            last = newNode;
         } else {
-            //if index is within listCount range (index != 0)
+            //if index is within listCount range and larger than 0
             //get to the given index
             node *pointer = first;
-            int count = 0;
             
-            while (count < (index)) {
-                pointer = pointer -> next;
-                count++;
+            for (int i = 0; i < index-1; i++) {
+                pointer = pointer->next;
             }
-    
-            //at the index location, create newNode
-            //have the newNode pointing to the node to its right
-            //and the previous node pointing to newNode
-            node *newNode = new node(text, pointer->next);
-            
-            pointer -> next = newNode;
+
+            //at the index location, point newNode to the node on its right
+            //and set the node on its left to point to newNode
+            newNode->next = pointer->next;
+            pointer->next = newNode;
         }
-    
         listCount++;
     }
 
     return rc;
+
+}
+
+//******************************************************************************
+//P2b
+bool stringLinkedList::deleteAt(int index, std::string &text) {
+    bool rc = ((index >= 0) && (index < listCount));
+
+    if (rc) {
+        //if index is within listCount range
+        //delete the entry at the given index
+        node *pointer = first;
+        if (index == 0) {
+            //if index is the first on the list
+            //get text, change first pointer, delete node
+            text = first->text;
+            first = first->next;
+            delete pointer;
+        } else {
+            //get to the node left to the given index
+            //get text, change pointer to point to the node to the right of index
+            //delete node            
+            for (int i = 0; i < index-1; i++) {
+                pointer = pointer->next;
+            }
+            text = pointer->next->text;
+            delete pointer->next;
+            pointer->next = pointer->next->next;
+
+            if (index == listCount-1) {
+                last == pointer;
+            }
+        }
+    }
+
+    return rc;
+}
+
+//******************************************************************************
+//P2b
+bool stringLinkedList::readAt(int index, std::string &text) const {
+    bool rc = ((index >= 0) && (index < listCount));
+
+    if (rc) {
+        //if index is within listCount range
+        //read the entry at the given index
+        node *pointer = first;
+        //get to the node at the given index
+        //return text at the given index          
+        for (int i = 0; i < index; i++) {
+            pointer = pointer->next;
+        }
+
+        text = pointer->text;
+    }
+
+    return rc;
+}
+
+//******************************************************************************
+
+void stringLinkedList::clear() { 
+    //call recursion helper
+    clear(first);
+
+    //clear first, last, and listCount variables
+    first = last = NULL;
+    listCount = 0;
+}
+
+//******************************************************************************
+//P2b
+int stringLinkedList::getIndex(std::string text) const{
+    //return the first position at which the value was found
+    //otherwise, returns -1
+    return getIndex(text, first, 0);
+}
+
+//******************************************************************************
+
+void stringLinkedList::printIt() const {
+    //if list exists, print list starting from the first node
+    printIt(first, 0);
+}
+
+//******************************************************************************
+
+int stringLinkedList::count() const {
+    //return the number of entries in the list, listCount
+    return listCount;
 }

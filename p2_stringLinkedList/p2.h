@@ -1,4 +1,9 @@
-
+/*
+* Jospeh Song
+* Queena Lee
+* CSC255 Spring 2023
+* Assignment: Program 2a
+*/
 
 #ifndef __P1_H
 #define __P1_H
@@ -10,7 +15,7 @@ class node {
         std::string text;
         node *next;
         node(std::string text="", node *pn=NULL);
-        friend stringLinkedList;
+        friend class stringLinkedList;
 };
 
 class stringLinkedList {
@@ -21,7 +26,7 @@ class stringLinkedList {
         int listCount; 
 
         //recursion helper
-        int getIndex(std::string text, node*pn, int index) const;
+        int getIndex(std::string text, node *pn, int index) const;
 
         //recursion helper
         void printIt(node *pn, int index) const;
@@ -29,10 +34,11 @@ class stringLinkedList {
         //recursion helper
         void clear(node *pn);
     public:
-        //causes the object to be initialized (first = last = NULL and count 0)
+        //causes the object to be initialized
+        //(first = last = NULL and count 0)
         stringLinkedList();
 
-        //deletes he dynamically allocated nodes in the list
+        //deletes the dynamically allocated nodes in the list
         ~stringLinkedList();
 
         //MODIFIERS
@@ -56,7 +62,8 @@ class stringLinkedList {
         // Returns true if the index was within 0 <= index < length()
         //returns false otherwise
         //If the delete takes place
-        //it returns the string in the deleted node via the reference parameter “text”
+        //it returns the string in the deleted node
+        //via the reference parameter "text”
         bool deleteAt(int index, std::string &text);
         
         //P2b

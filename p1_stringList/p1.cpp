@@ -104,6 +104,7 @@ bool stringList::deleteAt(int index, std::string &text) {
 }
 
 //******************************************************************************
+
 void stringList::clear() {
     //causes the list to be emptied
     listSize = 0;
