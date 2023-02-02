@@ -5,8 +5,6 @@
 * Assignment: Program 2a
 */
 
-//remember to put our names on functions
-
 #include <iostream>
 #include <fstream>
 
@@ -15,14 +13,14 @@
 using namespace std;
 
 //******************************************************************************
-
+// Queena Lee
 node::node(std::string text, node *pn) {
     this->text = text;
     next = pn;
 }
 
 //******************************************************************************
-
+// Joseph Song & Queena Lee
 stringLinkedList::stringLinkedList() {
     //initialize first, last, and listCount
     first = last = NULL;
@@ -30,7 +28,7 @@ stringLinkedList::stringLinkedList() {
 }
 
 //******************************************************************************
-
+// Queena Lee
 stringLinkedList::~stringLinkedList() {
     //delete all nodes
     clear(first);
@@ -39,7 +37,7 @@ stringLinkedList::~stringLinkedList() {
 }
 
 //******************************************************************************
-
+// Queena Lee
 int stringLinkedList::getIndex(std::string text, node *pn, int index) const {
     int rc = -1;
 
@@ -57,19 +55,19 @@ int stringLinkedList::getIndex(std::string text, node *pn, int index) const {
 }
 
 //******************************************************************************
-
+// Joseph Song
 void stringLinkedList::printIt(node *pn, int index) const {
     if (pn) {
         //if index exists within listCount range
         //print list and recurse function until the end of the list
         cout << "At pos "<< index << " there is " << pn->text << endl;
 
-        printIt(pn->next, index + 1);
+        printIt(pn->next, index+1);
     }
 }
 
 //******************************************************************************
-
+// Joseph Song & Queena Lee
 void stringLinkedList::clear(node *pn) {
     if (pn) {
         //if a node exists, go to the end of the list
@@ -80,7 +78,7 @@ void stringLinkedList::clear(node *pn) {
 }
 
 //******************************************************************************
-
+// Joseph Song
 bool stringLinkedList::insert(std::string text) {
     //create new node pointing to the value of first
     node *newNode = new node(text, first);
@@ -98,7 +96,7 @@ bool stringLinkedList::insert(std::string text) {
 }
 
 //******************************************************************************
-
+// Joseph Song
 bool stringLinkedList::add(std::string text) {    
     //create new node pointing to null
     node *newNode = new node(text);
@@ -120,7 +118,7 @@ bool stringLinkedList::add(std::string text) {
 }
 
 //******************************************************************************
-
+// Queena Lee
 bool stringLinkedList::insertAt(int index, std::string text) {
     //determine if index is withtin listCount range (0 <= index <= listCount)
     bool rc = (index >= 0) && (index <= listCount);
@@ -162,7 +160,7 @@ bool stringLinkedList::insertAt(int index, std::string text) {
 }
 
 //******************************************************************************
-//P2b
+// Joseph Song & Queena Lee
 bool stringLinkedList::deleteAt(int index, std::string &text) {
     bool rc = ((index >= 0) && (index < listCount));
 
@@ -197,7 +195,7 @@ bool stringLinkedList::deleteAt(int index, std::string &text) {
 }
 
 //******************************************************************************
-//P2b
+// Joseph Song & Queena Lee
 bool stringLinkedList::readAt(int index, std::string &text) const {
     bool rc = ((index >= 0) && (index < listCount));
 
@@ -218,7 +216,7 @@ bool stringLinkedList::readAt(int index, std::string &text) const {
 }
 
 //******************************************************************************
-
+// Joseph Song & Queena Lee
 void stringLinkedList::clear() { 
     //call recursion helper
     clear(first);
@@ -229,7 +227,7 @@ void stringLinkedList::clear() {
 }
 
 //******************************************************************************
-//P2b
+// Queena Lee
 int stringLinkedList::getIndex(std::string text) const{
     //return the first position at which the value was found
     //otherwise, returns -1
@@ -237,14 +235,14 @@ int stringLinkedList::getIndex(std::string text) const{
 }
 
 //******************************************************************************
-
+// Joseph Song
 void stringLinkedList::printIt() const {
     //if list exists, print list starting from the first node
     printIt(first, 0);
 }
 
 //******************************************************************************
-
+// Joseph Song & Queena Lee
 int stringLinkedList::count() const {
     //return the number of entries in the list, listCount
     return listCount;
