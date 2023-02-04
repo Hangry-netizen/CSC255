@@ -66,7 +66,7 @@ bool stringList::add(std::string text) {
 //******************************************************************************
 
 bool stringList::insertAt(int index, std::string text) {
-    bool rc = listCapacity > listSize;
+    bool rc = (index >= 0) && (index <= listSize);
     
     //if list has capacity
     //move all items at the index to the right
@@ -86,7 +86,7 @@ bool stringList::insertAt(int index, std::string text) {
 //******************************************************************************
 
 bool stringList::deleteAt(int index, std::string &text) {
-    bool rc = (!(index < 0)) && (index < listSize);
+    bool rc = (index >= 0) && (index <= listSize);
 
     //if index exists within the list range
     //set "text" to the value of the item at the given index
@@ -124,16 +124,15 @@ void stringList::printIt() const {
 int stringList::getIndex(std::string text) const {
     int rc = -1;
 
-    if (listSize != 0) {
-        //if list is not empty
-        //return the index of the text given
-        //otherwise, return -1
-        for (int i = 0; i < listSize; i++) {
-            if (text == a[i]) {
-                rc = i;
-            } 
-        }
+    //if text exists in list, return the index of the text given
+    //otherwise, return -1
+    for (int i = 0; i < listSize; i++) {
+        if (text == a[i]) {
+            rc = i;
+            break;
+        } 
     }
+
 
     return rc;
 }
@@ -142,10 +141,8 @@ int stringList::getIndex(std::string text) const {
 
 bool stringList::readAt(int index, std::string &text) const {
     bool rc = false;
-    //(!(index < 0)) && (index < listSize);
 
-
-    if ((!(index < 0)) && (index < listSize)) {
+    if ((index >= 0) && (index <= listSize)) {
         //if index exists in a
         //return the value stored in the index
         //otherwise, return -1
