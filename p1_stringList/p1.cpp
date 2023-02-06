@@ -22,6 +22,7 @@ stringList::stringList(int listCapacity) {
 
 stringList::~stringList() {
     if (a != 0) {
+        //if array exists, delete the dynamically allocated array
         delete[] a;
         a = NULL;
     }
