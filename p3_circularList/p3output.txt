@@ -44,17 +44,18 @@ At pos 11 there is amen
 deleteAt 30 got false and na
 deleteFirst  got true and helperhelper
 deleteAt 1 got true and breakerbreaker
-deleteAt -1 got true and na
+deleteAt -1 got false and na
 deleteLast  got true and amen
-At pos 0 there is is
-At pos 1 there is the
-At pos 2 there is day
-At pos 3 there is that
-At pos 4 there is the
-At pos 5 there is Lord
-At pos 6 there is has
-At pos 7 there is made
+At pos 0 there is Today
+At pos 1 there is is
+At pos 2 there is the
+At pos 3 there is day
+At pos 4 there is that
+At pos 5 there is the
+At pos 6 there is Lord
+At pos 7 there is has
+At pos 8 there is made
 List was cleared
-deleteAt 0 got true and na
-deleteLast  got true and is
-deleteFirst  got true and is
+deleteAt 0 got false and na
+deleteLast  got false and na
+deleteFirst  got false and na

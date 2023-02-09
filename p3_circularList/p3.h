@@ -2,7 +2,7 @@
 * Joseph Song
 * Queena Lee
 * CSC255 Spring 2023
-* Assignment: Program 3a
+* Assignment: Program 3b
 */
 
 #ifndef __P3_H
@@ -30,7 +30,8 @@ class cStringList {
         // increments the passed value, wrapping its value to 0 if necessary
         void incVal(int &value);
 
-        // decrements the passed value, wrapping its value to capacity -1 if ncessary
+        // decrements the passed value, wrapping its value to
+        // capacity -1 if ncessary
         void decVal(int &value);
 
     public:
@@ -54,7 +55,8 @@ class cStringList {
         // Inserts the given text at the index "index"
         // values at that position need to shift right
         // returns true if the text is inserted
-        // returns false if the list was full or if the index was greater than listCount
+        // returns false if the list was full
+        //or if the index was greater than listCount
         bool insertAt(int index, std::string text);
         
         // Deletes the text at the given index
@@ -91,8 +93,6 @@ class cStringList {
         // Causes the list to be printed, one value per line
         // for each line, print the index and the text at that index 
         void printIt() const;
-
-        void print(int index);
 };
 
 #endif

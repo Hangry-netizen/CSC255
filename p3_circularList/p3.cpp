@@ -2,7 +2,7 @@
 * Joseph Song
 * Queena Lee
 * CSC255 Spring 2023
-* Assignment: Program 3a
+* Assignment: Program 3b
 */
 
 #include <iostream>
@@ -172,7 +172,7 @@ bool cStringList::deleteAt(int index, std::string &text) {
 }
 
 //******************************************************************************
-//P3b
+//Joseph Song
 bool cStringList::readAt(int index, std::string &text) const {
     bool rc = false;
     int pIndex = first;
