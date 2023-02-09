@@ -95,39 +95,34 @@ bool cStringList::add(std::string text) {
 //******************************************************************************
 //Joseph Song & Queena Lee
 bool cStringList::insertAt(int userIndex, std::string text) {
-    bool indexExists = (userIndex >= 0) && (userIndex <= listCount);
-    bool hasCapacity = listCount < listCapacity;
-    bool rc = indexExists && hasCapacity;
+    bool rc = (listCount < listCapacity) && (userIndex <= listCount) && (userIndex >= 0);
+    int pIndex = last;
+    int ind;
+    string t;
 
     if (rc) {
-        //if index exists and list has capacity, insert text at given index
-        if (userIndex == 0) {
-            //if index given is 0, insert text at the beginning of the list
+        if (userIndex == 0){
             insert(text);
-        } else if (userIndex == listCount) {
-            //if index given is the last of the list, add text to the end of list
+        }
+        else if (userIndex == listCount){
             add(text);
-        }   else {
-                int index = last;
+        }
+        else{
+            for (int i = listCount; i > userIndex; i--) {
 
-                //move all entries right of the index one index to the right
-                //get to the index
-                for (int i = listCount; i > userIndex; i--) {
-                    std::string value = a[index];
-                    incVal(index);
-                    a[index] = value;
-                    decVal(index);
-                    decVal(index);
-                }
+                t = a[pIndex];
+                ind = pIndex;
 
-                //at the index, move its current value in the index to its right
-                //insert new text at index
-                //update last and listCount
-                incVal(index);
-                a[index] = text;
-                incVal(last);
-                listCount++;
+                incVal(ind);
+                a[ind] = t;
+
+                decVal(pIndex);
             }
+            incVal(pIndex);
+            a[pIndex] = text;
+            listCount++;
+            incVal(last);
+        }
     }
 
     return rc;
@@ -136,24 +131,40 @@ bool cStringList::insertAt(int userIndex, std::string text) {
 //******************************************************************************
 //Joseph Song
 bool cStringList::deleteAt(int index, std::string &text) {
-    bool rc = (index >= 0) && (index < listCount);
+    // If the index is not within listCount, it returns false.
+    bool rc = (index < listCount) && (index >= 0);
+    // pIndex moves from first to last 
     int pIndex = first;
+    // Temporary space to storage current index
+    int ind;
 
     if (rc) {
+        
         for (int i = 0; i < listCount; i++) {
-            if (index == i) {
+            // If index is i, get text
+            if (index == i){
                 text = a[pIndex];
-            } else if (index < i) {
-                int ind = pIndex;
+            }
+    
+            // If the current location is behind a given index
+            // shifts the entries to the left 
+            else if (index < i){
+                ind = pIndex;
                 decVal(ind);
                 a[ind] = a[pIndex];
             }
+
+            // Increment pIndex so that the pIndex continues
             incVal(pIndex);
         }
+
         listCount--;
+        // Decrement last index
         decVal(last);
 
-        if (listCount = 0) {
+        // If listCount becomes empty after listCount--
+        // Rearrange first and last to 0 
+        if(listCount == 0){
             first = last = 0;
         }
     }
@@ -161,19 +172,23 @@ bool cStringList::deleteAt(int index, std::string &text) {
 }
 
 //******************************************************************************
-//Joseph Song
-bool cStringList::readAt(int userIndex, std::string &text) const {
-    bool rc = (userIndex >= 0) && (userIndex < listCount);
+//P3b
+bool cStringList::readAt(int index, std::string &text) const {
+    bool rc = false;
     int pIndex = first;
 
-    if (rc) {
+    // If index is within listCount
+    if ((index >= 0) && (index < listCount)) {
         for (int i = 0; i < listCount; i++) {
-            if (userIndex == i) {
+            if (index == i){
                 text = a[pIndex];
             }
             pIndex = pIndex + 1;
             pIndex = pIndex % listCapacity;
         }
+        // Return true if text is within list
+        // Otherwise return false
+        rc = true;
     }
     return rc;
 }

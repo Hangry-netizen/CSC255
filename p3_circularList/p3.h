@@ -91,6 +91,8 @@ class cStringList {
         // Causes the list to be printed, one value per line
         // for each line, print the index and the text at that index 
         void printIt() const;
+
+        void print(int index);
 };
 
 #endif
