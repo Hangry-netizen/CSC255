@@ -95,19 +95,102 @@ bool cStringList::add(std::string text) {
 //******************************************************************************
 //P3b
 bool cStringList::insertAt(int userIndex, std::string text) {
-    return true;
+    bool rc = (listCount < listCapacity) && (userIndex <= listCount) && (userIndex >= 0);
+    int pIndex = last;
+    int ind;
+    string t;
+
+    if (rc) {
+        if (userIndex == 0){
+            insert(text);
+        }
+        else if (userIndex == listCount){
+            add(text);
+        }
+        else{
+            for (int i = listCount; i > userIndex; i--) {
+
+                t = a[pIndex];
+                ind = pIndex;
+
+                incVal(ind);
+                a[ind] = t;
+
+                decVal(pIndex);
+            }
+            incVal(pIndex);
+            a[pIndex] = text;
+            listCount++;
+            incVal(last);
+        }
+    }
+
+    return rc;
 }
 
 //******************************************************************************
 //P3b
 bool cStringList::deleteAt(int index, std::string &text) {
-    return true;
+    // If the index is not within listCount, it returns false.
+    bool rc = (index < listCount) && (index >= 0);
+    // pIndex moves from first to last 
+    int pIndex = first;
+    // Temporary space to storage current index
+    int ind;
+
+    if (rc) {
+        
+        for (int i = 0; i < listCount; i++) {
+            // If index is i, get text
+            if (index == i){
+                text = a[pIndex];
+            }
+    
+            // If the current location is behind a given index
+            // shifts the entries to the left 
+            else if (index < i){
+                ind = pIndex;
+                decVal(ind);
+                a[ind] = a[pIndex];
+            }
+
+            // Increment pIndex so that the pIndex continues
+            incVal(pIndex);
+        }
+
+        listCount--;
+        // Decrement last index
+        decVal(last);
+
+        // If listCount becomes empty after listCount--
+        // Rearrange first and last to 0 
+        if(listCount == 0){
+            first = last = 0;
+        }
+    }
+    return rc;
 }
 
 //******************************************************************************
 //P3b
 bool cStringList::readAt(int index, std::string &text) const {
-    return true;
+    bool rc = false;
+    int pIndex = first;
+
+    // If index is within listCount
+    if ((index >= 0) && (index < listCount)) {
+        for (int i = 0; i < listCount; i++) {
+            if (index == i){
+                text = a[pIndex];
+            }
+            pIndex = pIndex + 1;
+            pIndex = pIndex % listCapacity;
+        }
+        // Return true if text is within list
+        // Otherwise return false
+        rc = true;
+    }
+    return rc;
 }
 
 //******************************************************************************

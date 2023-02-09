@@ -1,8 +1,12 @@
 insert 0 Today
 add 0 is
-add 0 the
-add 0 day
-add 0 that
 printIt 0 na
-getIndex 0 day
-getIndex 0 happy
+
+deleteAt 30 na
+deleteFirst 0 na
+deleteAt 1 na
+
+deleteAt -1 na
+printIt 0 na
+deleteFirst 0 na
+deleteLast 0 na
