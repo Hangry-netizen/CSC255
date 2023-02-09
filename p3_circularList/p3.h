@@ -5,8 +5,8 @@
 * Assignment: Program 3a
 */
 
-#ifndef __P1_H
-#define __P1_H
+#ifndef __P3_H
+#define __P3_H
 
 #include <string>
 

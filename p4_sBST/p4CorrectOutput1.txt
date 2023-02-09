@@ -1,0 +1,51 @@
+Do Work - START ********************
+Inserting text from: p4In_1.txt
+Text not inserted:  abc
+Tree count is 13
+Tree contents are: 
+123
+456
+789
+abc
+def
+ghi
+hello
+jkl
+mno
+pqr
+stu
+vwx
+yz0
+Removing text from: p4Remove_1.txt
+abc was removed
+ghi was removed
+123 was removed
+world was NOT removed
+
+Delete Count is 3
+Tree count is 10
+Tree contents are: 
+456
+789
+def
+hello
+jkl
+mno
+pqr
+stu
+vwx
+yz0
+
+Checing for text from: p4IsIn_1.txt
+isIn reports this is in the list: def
+isIn reports this is NOT in the list: ghi
+isIn reports this is in the list: jkl
+isIn reports this is in the list: yz0
+isIn reports this is NOT in the list: 123
+isIn reports this is in the list: 789
+isIn reports this is NOT in the list: god
+isIn reports this is NOT in the list: God
+
+The cleared tree status:  count = 0
+The cleared tree contents follow:
+Do Work - END   ********************

@@ -1,8 +1,0 @@
-insert 0 Today
-add 0 is
-add 0 the
-add 0 day
-add 0 that
-printIt 0 na
-getIndex 0 day
-getIndex 0 happy

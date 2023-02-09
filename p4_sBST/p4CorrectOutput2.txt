@@ -1,0 +1,57 @@
+Do Work - START ********************
+Inserting text from: p4In_2.txt
+Text not inserted:  New
+Text not inserted:  International
+Text not inserted:  Version
+Text not inserted:  New
+Text not inserted:  International
+Text not inserted:  Version
+Text not inserted:  was
+Text not inserted:  a
+Text not inserted:  a
+Text not inserted:  the
+Text not inserted:  the
+Text not inserted:  of
+Text not inserted:  the
+Text not inserted:  from
+Text not inserted:  a
+Text not inserted:  committee
+Text not inserted:  of
+Text not inserted:  multiple
+Text not inserted:  the
+Text not inserted:  New
+Text not inserted:  International
+Text not inserted:  Version
+Text not inserted:  the
+Text not inserted:  of
+Text not inserted:  all
+Text not inserted:  of
+Text not inserted:  the
+Tree count is 44522
+Removing text from: p4Remove_2.txt
+elephant was NOT removed
+wolf was removed
+bear was removed
+David was removed
+Caesar was removed
+day was removed
+Monday was NOT removed
+
+Delete Count is 5
+Tree count is 44517
+
+Checing for text from: p4IsIn_2.txt
+isIn reports this is in the list: Jesus
+isIn reports this is in the list: Mary
+isIn reports this is in the list: Joseph
+isIn reports this is NOT in the list: Alabaster
+isIn reports this is in the list: driven
+isIn reports this is in the list: walk
+isIn reports this is in the list: walked
+isIn reports this is in the list: trusted
+isIn reports this is in the list: obey
+isIn reports this is NOT in the list: tyranny
+
+The cleared tree status:  count = 0
+The cleared tree contents follow:
+Do Work - END   ********************
