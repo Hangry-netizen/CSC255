@@ -22,6 +22,8 @@ class sNode {
         sNode *left, *right;
 
         sNode(std::string text = "");
+
+        friend class sBST;
 };
 
 class sBST {
@@ -36,11 +38,11 @@ class sBST {
         //whose root node is pointed to by ptr
         std::string findMin(sNode *ptr);
 
-        bool insert();
-        bool remove();
-        bool isIn();
-        void printIt();
-        void clear();
+        void insert(sNode *pointer, sNode *newNode);
+        void remove();
+        bool isIn(sNode *pointer, std::string text) const;
+        void printIt(sNode *pointer) const;
+        void clear(sNode *pointer);
 
     public:
         //constructor that causes object to be initialized
