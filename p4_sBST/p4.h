@@ -21,8 +21,9 @@ class sNode {
         //left and right children pointers
         sNode *left, *right;
 
+        //node constructor
         sNode(std::string text = "");
-
+        
         friend class sBST;
 };
 
@@ -39,7 +40,7 @@ class sBST {
         std::string findMin(sNode *ptr);
 
         void insert(sNode *pointer, sNode *newNode);
-        void remove();
+        bool remove(sNode *pointer, sNode *removeNode, std::string text);
         bool isIn(sNode *pointer, std::string text) const;
         void printIt(sNode *pointer) const;
         void clear(sNode *pointer);
