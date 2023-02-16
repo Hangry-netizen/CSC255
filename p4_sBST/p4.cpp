@@ -77,7 +77,7 @@ bool sBST::insert(sNode *&pointer, string text) {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 bool sBST::remove(sNode *&pointer, string text) {
     bool rc = false;
 
@@ -115,16 +115,14 @@ bool sBST::isIn(sNode *pointer, string text) const {
     bool rc = false;
 
     if (pointer) {
-        //if pointer exists, check if text in pointer is equivalent to text
-        //if text value in pointer is larger than text
-        //traverse the left children of the pointer
-        //if text value in pointer is smaller than text
-        //traverse the right children of the pointer
         if (text < pointer->text) {
+            //if text value is larger than text value in pointer, go left
             rc = isIn(pointer->left, text);
         } else if (text > pointer->text) {
+            //if text value is smaller than text value in pointer, go right
             rc = isIn(pointer->right, text);
         } else {
+            //otherwise, text value is equivalent the text value in pointer
             rc = true;
         }
     } 
@@ -146,7 +144,7 @@ void sBST::printIt(sNode *pointer) const {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sBST::clear(sNode *pointer) {
 
     //if pointer exists, transverse the tree
@@ -168,7 +166,7 @@ bool sBST::insert(string text) {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 bool sBST::remove(string text) {
     //call remove's recursion helper
     //results in true if text is removed
@@ -177,7 +175,7 @@ bool sBST::remove(string text) {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 bool sBST::isIn(string text) const {
     //call isIn's recursion helper
     //results in true if text is in the tree
@@ -200,7 +198,7 @@ int sBST::count() const {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sBST::clear() {
     //removes all nodes from the BST, making the BST empty
     clear(root);

@@ -39,6 +39,7 @@ class sBST {
         //whose root node is pointed to by ptr
         std::string findMin(sNode *ptr);
 
+        //recursion helpers
         bool insert(sNode *&pointer, std::string text);
         bool remove(sNode *&pointer, std::string text);
         bool isIn(sNode *pointer, std::string text) const;
