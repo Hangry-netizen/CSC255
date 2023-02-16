@@ -40,44 +40,59 @@ sBST::~sBST() {
 //******************************************************************************
 //Joseph Song & Queena Lee
 string sBST::findMin(sNode *pointer) {
-    string rc = "";
+    string rc;
 
     //returns the minimum value in the subtree
     //whose node is pointed to by pointer
     if (pointer->left) {
-        findMin(pointer->left);
+        rc = findMin(pointer->left);
+    } else {
+        rc = pointer->text;
     }
-    
-    rc = pointer->text;
-
     return rc;
 }
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-void sBST::insert(sNode *pointer, sNode *newNode) {
-    if (pointer) {
+bool sBST::insert(sNode *pointer, string text) {
+    bool rc = false;
+    sNode *newNode = new sNode(text);
+
+
+    if (treeCount == 0) {
+        root = newNode;
+        treeCount++;
+        rc = true;
+    }
+
+    else if (pointer) {
         //if pointer exists
         //determine if newNode's text is smaller or larger than pointer's text
         //and travel down the tree accordingly
         //insert when it arrives at a leaf
-        if (newNode->text < pointer->text) {
-            if (pointer->left) {
-                insert(pointer->left, newNode);
+        if (text < pointer->text) {
+            if(pointer->left){
+                rc = insert(pointer->left, text);
             } else {
                 pointer->left = newNode;
+                treeCount++;
+                rc = true;
             }
-    
-        } else if (newNode->text > pointer->text) {
-            if (pointer->right) {
-                insert(pointer->right, newNode);
+        } 
+        else if (text > pointer->text) {
+            if(pointer->right){
+                rc = insert(pointer->right, text);
             } else {
                 pointer->right = newNode;
+                treeCount++;
+                rc = true;
             }
         }
-        
-        pointer->h += 1;
+
     }
+
+
+    return rc;
 }
 
 //******************************************************************************
@@ -93,7 +108,7 @@ bool sBST::remove(sNode *pointer, sNode *removeNode, string text) {
     if (removeNode) {
         if (pointer->right) {
             pointer->text = findMin(pointer->right);
-            remove(pointer->right, removeNode, pointer->text);
+            rc = remove(pointer->right, removeNode, pointer->text);
         } else if (pointer->left) {
             sNode *temp = pointer;
             pointer = pointer->left;
@@ -103,7 +118,6 @@ bool sBST::remove(sNode *pointer, sNode *removeNode, string text) {
             delete removeNode;
             treeCount--;
         }
-        rc = true;
     }
 
     //check if node's text is equivalent to text to be removed
@@ -114,9 +128,9 @@ bool sBST::remove(sNode *pointer, sNode *removeNode, string text) {
     if (pointer->text == text) {
         removeNode = pointer;
     } else if (text < pointer->text) {
-        remove(pointer->left, removeNode, text);
+        rc = remove(pointer->left, removeNode, text);
     } else if (text > pointer->text) {
-        remove(pointer->right, removeNode, text);
+        rc = remove(pointer->right, removeNode, text);
     }
 
     return rc;
@@ -133,18 +147,14 @@ bool sBST::isIn(sNode *pointer, string text) const {
         //traverse the left children of the pointer
         //if text value in pointer is smaller than text
         //traverse the right children of the pointer
-        if (text == pointer->text) {
-            rc = true;
-        } else if (text < pointer->text) {
-            if (pointer->left) {
-                isIn(pointer->left, text);
-            }
+        if (text < pointer->text) {
+            rc = isIn(pointer->left, text);
         } else if (text > pointer->text) {
-            if (pointer->right) {
-                isIn(pointer->right, text);
-            }
+            rc = isIn(pointer->right, text);
+        } else {
+            rc = true;
         }
-    }
+    } 
     return rc; 
 }
 
@@ -179,26 +189,13 @@ void sBST::clear(sNode *pointer) {
 //Joseph Song & Queena Lee
 bool sBST::insert(string text) {
     //isIn is not functioning as intended yet
-    bool rc = !(isIn(root, text));
     
     //if text is not already in the tree
     //insert text into the tree
     //returns true for success
     //returns false if the text value is already in use
-    
-    if (rc) {
-        sNode *newNode = new sNode(text);
 
-        if (treeCount == 0) {
-            root = newNode;
-        } else {
-            insert(root, newNode);
-        }
-        
-        treeCount++;
-    }
-
-    return rc;
+    return insert(root, text);
 }
 
 //******************************************************************************

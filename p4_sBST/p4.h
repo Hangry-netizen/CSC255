@@ -39,7 +39,7 @@ class sBST {
         //whose root node is pointed to by ptr
         std::string findMin(sNode *ptr);
 
-        void insert(sNode *pointer, sNode *newNode);
+        bool insert(sNode *pointer, std::string text);
         bool remove(sNode *pointer, sNode *removeNode, std::string text);
         bool isIn(sNode *pointer, std::string text) const;
         void printIt(sNode *pointer) const;
