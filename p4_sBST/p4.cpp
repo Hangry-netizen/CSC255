@@ -2,7 +2,7 @@
 * Joseph Song
 * Queena Lee
 * CSC255 Spring 2023
-* Assignment: Program 4a
+* Assignment: Program 4b
 */
 
 #include <iostream>
@@ -34,103 +34,76 @@ sBST::sBST() {
 sBST::~sBST() {
     //deconstructor that deletes all the nodes
     //in preparation for the tree to be destroyed
-    clear();
+    clear(root);
 }
 
 //******************************************************************************
 //Joseph Song & Queena Lee
 string sBST::findMin(sNode *pointer) {
-    string rc;
+    string rc = pointer->text;
 
     //returns the minimum value in the subtree
     //whose node is pointed to by pointer
     if (pointer->left) {
         rc = findMin(pointer->left);
-    } else {
-        rc = pointer->text;
     }
+
     return rc;
 }
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-bool sBST::insert(sNode *pointer, string text) {
+bool sBST::insert(sNode *&pointer, string text) {
     bool rc = false;
-    sNode *newNode = new sNode(text);
 
-
-    if (treeCount == 0) {
-        root = newNode;
+    if (pointer) {
+        //if pointer exists
+        if (text < pointer->text) {
+            //if text is less than pointer's text, travel left
+            rc = insert(pointer->left, text);
+        } 
+        else if (text > pointer->text) {
+            //if text is more than pointer's text, travel right
+            rc = insert(pointer->right, text);
+        }
+    } else {
+        //otherwise, we are at a leaf and we will insert the new node here
+        pointer = new sNode(text);
         treeCount++;
         rc = true;
     }
-
-    else if (pointer) {
-        //if pointer exists
-        //determine if newNode's text is smaller or larger than pointer's text
-        //and travel down the tree accordingly
-        //insert when it arrives at a leaf
-        if (text < pointer->text) {
-            if(pointer->left){
-                rc = insert(pointer->left, text);
-            } else {
-                pointer->left = newNode;
-                treeCount++;
-                rc = true;
-            }
-        } 
-        else if (text > pointer->text) {
-            if(pointer->right){
-                rc = insert(pointer->right, text);
-            } else {
-                pointer->right = newNode;
-                treeCount++;
-                rc = true;
-            }
-        }
-
-    }
-
 
     return rc;
 }
 
 //******************************************************************************
 //P4b Joseph Song & Queena Lee
-bool sBST::remove(sNode *pointer, sNode *removeNode, string text) {
+bool sBST::remove(sNode *&pointer, string text) {
     bool rc = false;
 
-    //if the node to be removed has been found, check for children
-    //if right child exists, find the minimum of of the right child
-    //copy minimum child to replace the node that needs to be removed
-    //otherwise, if left child exist, assign left child in place of removeNode
-    //if removeNode is childless, delete the node
-    if (removeNode) {
-        if (pointer->right) {
-            pointer->text = findMin(pointer->right);
-            rc = remove(pointer->right, removeNode, pointer->text);
-        } else if (pointer->left) {
-            sNode *temp = pointer;
-            pointer = pointer->left;
-            delete temp;
-            treeCount--;
+    if (pointer) {
+        //if pointer exists, check if text is > or < than pointer's text
+        if (text < pointer->text) {
+            rc = remove(pointer->left, text);
+        } else if (text > pointer->text) {
+            rc = remove(pointer->right, text);
         } else {
-            delete removeNode;
-            treeCount--;
+            //if text is equivalent to pointer's text, check for right child
+            if (pointer->right) {
+                //if right child exists
+                //get the min of right child to replace the node to be removed
+                pointer->text = findMin(pointer->right);
+                rc = remove(pointer->right, pointer->text);
+            } else {
+                //otherwise, if only left child exists
+                //copy left child to replace the node to be removed
+                sNode *temp = pointer;
+                pointer = pointer->left;
+                delete temp;
+                treeCount--;
+                rc = true;
+            }
         }
-    }
-
-    //check if node's text is equivalent to text to be removed
-    //once found, set it as removeNode
-    //otherwise, check if text to be removed is to left or right of the pointer
-    //determine its path accordingly
-    //(is less than to the left, is more than to the right)
-    if (pointer->text == text) {
-        removeNode = pointer;
-    } else if (text < pointer->text) {
-        rc = remove(pointer->left, removeNode, text);
-    } else if (text > pointer->text) {
-        rc = remove(pointer->right, removeNode, text);
     }
 
     return rc;
@@ -188,34 +161,27 @@ void sBST::clear(sNode *pointer) {
 //******************************************************************************
 //Joseph Song & Queena Lee
 bool sBST::insert(string text) {
-    //isIn is not functioning as intended yet
-    
-    //if text is not already in the tree
-    //insert text into the tree
-    //returns true for success
-    //returns false if the text value is already in use
-
+    //call insert's recursion helper
+    //results in true if text is inserted
+    //otherwise, results in false
     return insert(root, text);
 }
 
 //******************************************************************************
 //P4b Joseph Song & Queena Lee
 bool sBST::remove(string text) {
-    //removes the node with that text, deleting the node
-    //returns true on success
-    //returns false if the node is not found
-
-    //can't get remove to work as intended without resulting in a seg fault
-    //remove(root, NULL, text);
-    return false;
+    //call remove's recursion helper
+    //results in true if text is removed
+    //otherwise, results in false
+    return remove(root, text);
 }
 
 //******************************************************************************
 //P4b Joseph Song & Queena Lee
 bool sBST::isIn(string text) const {
-    //returns true if the node with text value is in the tree
-    //otherwise, returns false
-    //can't get isIn to function as intended, trying to figure out the issue
+    //call isIn's recursion helper
+    //results in true if text is in the tree
+    //otherwise, results in false
     return isIn(root, text);
 }
 

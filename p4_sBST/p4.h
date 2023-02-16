@@ -2,7 +2,7 @@
 * Joseph Song
 * Queena Lee
 * CSC255 Spring 2023
-* Assignment: Program 4a
+* Assignment: Program 4b
 */
 
 #ifndef __P4_H
@@ -39,8 +39,8 @@ class sBST {
         //whose root node is pointed to by ptr
         std::string findMin(sNode *ptr);
 
-        bool insert(sNode *pointer, std::string text);
-        bool remove(sNode *pointer, sNode *removeNode, std::string text);
+        bool insert(sNode *&pointer, std::string text);
+        bool remove(sNode *&pointer, std::string text);
         bool isIn(sNode *pointer, std::string text) const;
         void printIt(sNode *pointer) const;
         void clear(sNode *pointer);
