@@ -72,6 +72,8 @@ bool sAVL::insert(sNode *&p, string text) {
         treeCount++;
         rc = true;
     }
+    p->h++;
+    bal(p);
 
     return rc;
 }
@@ -103,9 +105,12 @@ bool sAVL::remove(sNode *&p, string text) {
                 treeCount--;
                 rc = true;
             }
-            bal(p);
-            p->h = calcHeight(p);
         }
+    }
+    
+    if (p) {
+        p->h = calcHeight(p);
+        bal(p);
     }
 
     return rc;
@@ -137,9 +142,10 @@ bool sAVL::isIn(sNode *p, string text) const {
 //AVL
 void sAVL::printIt(sNode *p, int &index) const {
     if (p) {
-        printIt(p->left, p->h);
-        cout << p->text << <<endl;
-        printIt(p->right, p->h);
+        printIt(p->left, index);
+        cout << "At " << index++ << " the string is " << p->text;
+        cout << ": height = " << p->h << endl;
+        printIt(p->right, index);
     }
 }
 
@@ -253,7 +259,8 @@ bool sAVL::isIn(string text) const {
 //Joseph Song & Queena Lee
 void sAVL::printIt() const {
     //results in the BST's text values being printed in ascending order
-    printIt(root, root->h);
+    int index = 0;
+    printIt(root, index);
 }
 
 //******************************************************************************
