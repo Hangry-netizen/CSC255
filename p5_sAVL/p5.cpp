@@ -13,8 +13,9 @@
 using namespace std;
 
 //******************************************************************************
-//AVL
+//Joseph Song & Queena Lee
 int max(int a, int b) {
+    //function to determine the maximum of two given integers
     int max = a;
 
     if (b > max) {
@@ -64,7 +65,7 @@ string sAVL::findMin(sNode *p) {
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 bool sAVL::insert(sNode *&p, string text) {
     bool rc = false;
 
@@ -87,8 +88,7 @@ bool sAVL::insert(sNode *&p, string text) {
         bal(p);
         p->h = calcHeight(p);
     }
-    //calculate the height of p
-    //balance each time a value is inserted
+    //calculate the new height of p and balance p
     p->h = calcHeight(p);
     bal(p);
 
@@ -96,7 +96,7 @@ bool sAVL::insert(sNode *&p, string text) {
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 bool sAVL::remove(sNode *&p, string text) {
     bool rc = false;
 
@@ -125,8 +125,7 @@ bool sAVL::remove(sNode *&p, string text) {
         }
     }
     
-    // if it doesn't delete the root
-    // calculate the height of p and balance the tree
+    //calculate the new height of p and balance p
     if (p) {
         p->h = calcHeight(p);
         bal(p);
@@ -146,6 +145,7 @@ bool sAVL::isIn(sNode *p, string text) const {
         //traverse the left children of the pointer
         //if text value in pointer is smaller than text
         //traverse the right children of the pointer
+        //return true if text is in the tree
         if (text < p->text) {
             rc = isIn(p->left, text);
         } else if (text > p->text) {
@@ -158,9 +158,11 @@ bool sAVL::isIn(sNode *p, string text) const {
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sAVL::printIt(sNode *p, int &index) const {
     if (p) {
+        //if pointer exists, traverse the tree
+        //and print entries from left to right, with their index and height
         printIt(p->left, index);
         cout << "At " << index++ << " the string is " << p->text;
         cout << ": height = " << p->h << endl;
@@ -172,8 +174,8 @@ void sAVL::printIt(sNode *p, int &index) const {
 //Joseph Song & Queena Lee
 void sAVL::clear(sNode *p) {
 
-    //if pointer exists, transverse the tree
-    //and clear nodes from right to left
+    //if pointer exists, transverse the tree 
+    //and clear all nodes from right to left
     if (p) {
         clear(p->left);
         clear(p->right);
@@ -182,68 +184,66 @@ void sAVL::clear(sNode *p) {
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sAVL::rotateLeft(sNode *&p1) {
     //rotate left around p1
     sNode *p2 = p1->right;
     p1->right = p2->left;
     p2->left = p1;
 
-    //rebalance height since the position has changed
+    //recalculate height since positions have been changed
     p1->h = calcHeight(p1);
     p2->h = calcHeight(p2);
     p1 = p2;
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sAVL::rotateRight(sNode *&p1) {
     //rotate right around p1
     sNode *p2 = p1->left;
     p1->left = p2->right;
     p2->right = p1;
 
-    //rebalance height since the position has changed
+    //recalculate height since positions have been changed
     p1->h = calcHeight(p1);
     p2->h = calcHeight(p2);
     p1 = p2;
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sAVL::bal(sNode *&p1) {
     if(p1) {
         int diff = height(p1->left) - height(p1->right);
 
-        //if left-left heavy, rotate the tree to the right around p
-        //else if left-right heavy
-        //rotate the tree to the left and rotate to the right
         if (diff == 2) {
+            //Left heavy - rotoate right
             diff = height(p1->left->left) - height(p1->left->right);
             if (diff == 0) {
+                //Left-right heavy - rotate left then rotate right
                 rotateLeft(p1->left);
             }
             rotateRight(p1);
-        //if right-right heavy, rotate the tree to the left around p
-        //else if right-left heavy
-        //rotate the tree to the right and rotate to the left
         } else if (diff == -2) {
-            //Right heavy
+            //Right heavy - rotate left
             if (height(p1->right->left) > height(p1->right->right)) {
-                //Right-left heavy
+                //Right-left heavy - rotate right then rotate left
                 rotateRight(p1->right);
             }
             rotateLeft(p1);
         }
+        //recalculate p's height
         p1->h = calcHeight(p1);
     }
 
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 int sAVL::height(sNode *p) {
-    // returns 0 if p is NULL
+    //return the height of p
+    //return 0 if p is NULL
     int rc = 0;
 
     if (p) {
@@ -254,10 +254,10 @@ int sAVL::height(sNode *p) {
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 int sAVL::calcHeight(sNode *p) {
-    //Compare the height of the left child and the height of the right child
-    //add 1 to the larger number
+    //compare the height of the left child and the height of the right child
+    //add 1 to the larger number for own height
     return max(height(p->left), height(p->right)) + 1;
 }
 
@@ -289,10 +289,10 @@ bool sAVL::isIn(string text) const {
 }
 
 //******************************************************************************
-//P5a Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sAVL::printIt() const {
     //results in the BST's text values being printed in ascending order
-    //Specifies the starting value of the index
+    //with its index number
     int index = 0;
     printIt(root, index);
 }
