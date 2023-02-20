@@ -1,0 +1,51 @@
+Do Work - START ********************
+Inserting text from: p5In_1.txt
+Text not inserted:  abc
+Tree count is 13
+Tree contents are: 
+At 0 the string is 123: height = 1
+At 1 the string is 456: height = 2
+At 2 the string is 789: height = 1
+At 3 the string is abc: height = 3
+At 4 the string is def: height = 2
+At 5 the string is ghi: height = 1
+At 6 the string is hello: height = 4
+At 7 the string is jkl: height = 1
+At 8 the string is mno: height = 2
+At 9 the string is pqr: height = 1
+At 10 the string is stu: height = 3
+At 11 the string is vwx: height = 2
+At 12 the string is yz0: height = 1
+Removing text from: p5Remove_1.txt
+abc was removed
+ghi was removed
+123 was removed
+world was NOT removed
+
+Delete Count is 3
+Tree count is 10
+Tree contents are: 
+At 0 the string is 456: height = 1
+At 1 the string is 789: height = 2
+At 2 the string is def: height = 1
+At 3 the string is hello: height = 4
+At 4 the string is jkl: height = 1
+At 5 the string is mno: height = 2
+At 6 the string is pqr: height = 1
+At 7 the string is stu: height = 3
+At 8 the string is vwx: height = 2
+At 9 the string is yz0: height = 1
+
+Checking for text from: p5IsIn_1.txt
+isIn reports this is in the list: def
+isIn reports this is NOT in the list: ghi
+isIn reports this is in the list: jkl
+isIn reports this is in the list: yz0
+isIn reports this is NOT in the list: 123
+isIn reports this is in the list: 789
+isIn reports this is NOT in the list: god
+isIn reports this is NOT in the list: God
+
+The cleared tree status:  count = 0
+The cleared tree contents follow:
+Do Work - END   ********************

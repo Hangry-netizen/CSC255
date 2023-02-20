@@ -13,6 +13,18 @@
 using namespace std;
 
 //******************************************************************************
+//AVL
+int max(int a, int b) {
+    int max = a;
+
+    if (b > max) {
+        max = b;
+    }
+
+    return max;
+}
+
+//******************************************************************************
 //Joseph Song & Queena Lee
 sNode::sNode(string text) {
     //constructor that causes the object node to be initialized
@@ -71,6 +83,9 @@ bool sAVL::insert(sNode *&p, string text) {
         p = new sNode(text);
         treeCount++;
         rc = true;
+        
+        bal(p);
+        p->h = calcHeight(p);
     }
 
     return rc;
@@ -138,7 +153,7 @@ bool sAVL::isIn(sNode *p, string text) const {
 void sAVL::printIt(sNode *p, int &index) const {
     if (p) {
         printIt(p->left, p->h);
-        cout << p->text << <<endl;
+        cout << "At " << index << " the string is " << p->text << ": height = " << p->h <<endl;
         printIt(p->right, p->h);
     }
 }
@@ -253,7 +268,10 @@ bool sAVL::isIn(string text) const {
 //Joseph Song & Queena Lee
 void sAVL::printIt() const {
     //results in the BST's text values being printed in ascending order
-    printIt(root, root->h);
+
+    int index = -1;
+
+    printIt(root, index);
 }
 
 //******************************************************************************
