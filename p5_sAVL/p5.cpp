@@ -52,7 +52,7 @@ string sAVL::findMin(sNode *p) {
 }
 
 //******************************************************************************
-//Joseph Song & Queena Lee
+//P5a Joseph Song & Queena Lee
 bool sAVL::insert(sNode *&p, string text) {
     bool rc = false;
 
@@ -72,14 +72,16 @@ bool sAVL::insert(sNode *&p, string text) {
         treeCount++;
         rc = true;
     }
-    p->h++;
+    //calculate the height of p
+    //balance each time a value is inserted
+    p->h = calcHeight(p);
     bal(p);
 
     return rc;
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//P5a Joseph Song & Queena Lee
 bool sAVL::remove(sNode *&p, string text) {
     bool rc = false;
 
@@ -108,6 +110,8 @@ bool sAVL::remove(sNode *&p, string text) {
         }
     }
     
+    // if it doesn't delete the root
+    // calculate the height of p and balance the tree
     if (p) {
         p->h = calcHeight(p);
         bal(p);
@@ -139,7 +143,7 @@ bool sAVL::isIn(sNode *p, string text) const {
 }
 
 //******************************************************************************
-//AVL
+//P5a Joseph Song & Queena Lee
 void sAVL::printIt(sNode *p, int &index) const {
     if (p) {
         printIt(p->left, index);
@@ -150,7 +154,7 @@ void sAVL::printIt(sNode *p, int &index) const {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sAVL::clear(sNode *p) {
 
     //if pointer exists, transverse the tree
@@ -163,41 +167,51 @@ void sAVL::clear(sNode *p) {
 }
 
 //******************************************************************************
-//AVL Done
+//P5a Joseph Song & Queena Lee
 void sAVL::rotateLeft(sNode *&p1) {
+    //rotate left around p1
     sNode *p2 = p1->right;
     p1->right = p2->left;
     p2->left = p1;
+
+    //rebalance height since the position has changed
     p1->h = calcHeight(p1);
     p2->h = calcHeight(p2);
     p1 = p2;
 }
 
 //******************************************************************************
-//AVL Done
+//P5a Joseph Song & Queena Lee
 void sAVL::rotateRight(sNode *&p1) {
+    //rotate right around p1
     sNode *p2 = p1->left;
     p1->left = p2->right;
     p2->right = p1;
+
+    //rebalance height since the position has changed
     p1->h = calcHeight(p1);
     p2->h = calcHeight(p2);
     p1 = p2;
 }
 
 //******************************************************************************
-//AVL Done
+//P5a Joseph Song & Queena Lee
 void sAVL::bal(sNode *&p1) {
     if(p1) {
         int diff = height(p1->left) - height(p1->right);
 
+        //if left-left heavy, rotate the tree to the right around p
+        //else if left-right heavy
+        //rotate the tree to the left and rotate to the right
         if (diff == 2) {
-            //Left heavy
             diff = height(p1->left->left) - height(p1->left->right);
             if (diff == 0) {
-                //Left-right heavy
                 rotateLeft(p1->left);
             }
             rotateRight(p1);
+        //if right-right heavy, rotate the tree to the left around p
+        //else if right-left heavy
+        //rotate the tree to the right and rotate to the left
         } else if (diff == -2) {
             //Right heavy
             if (height(p1->right->left) > height(p1->right->right)) {
@@ -212,19 +226,23 @@ void sAVL::bal(sNode *&p1) {
 }
 
 //******************************************************************************
-//AVL
+//P5a Joseph Song & Queena Lee
 int sAVL::height(sNode *p) {
+    // returns 0 if p is NULL
     int rc = 0;
 
     if (p) {
         rc = p->h;
     }
+
     return rc;
 }
 
 //******************************************************************************
-//AVL
+//P5a Joseph Song & Queena Lee
 int sAVL::calcHeight(sNode *p) {
+    //Compare the height of the left child and the height of the right child
+    //add 1 to the larger number
     return max(height(p->left), height(p->right)) + 1;
 }
 
@@ -238,7 +256,7 @@ bool sAVL::insert(string text) {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 bool sAVL::remove(string text) {
     //call remove's recursion helper
     //results in true if text is removed
@@ -247,7 +265,7 @@ bool sAVL::remove(string text) {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 bool sAVL::isIn(string text) const {
     //call isIn's recursion helper
     //results in true if text is in the tree
@@ -256,9 +274,10 @@ bool sAVL::isIn(string text) const {
 }
 
 //******************************************************************************
-//Joseph Song & Queena Lee
+//P5a Joseph Song & Queena Lee
 void sAVL::printIt() const {
     //results in the BST's text values being printed in ascending order
+    //Specifies the starting value of the index
     int index = 0;
     printIt(root, index);
 }
@@ -271,7 +290,7 @@ int sAVL::count() const {
 }
 
 //******************************************************************************
-//P4b Joseph Song & Queena Lee
+//Joseph Song & Queena Lee
 void sAVL::clear() {
     //removes all nodes from the BST, making the BST empty
     clear(root);
