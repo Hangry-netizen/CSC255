@@ -52,7 +52,7 @@ sAVL::~sAVL() {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-string sAVL::findMin(sNode *p) {
+string sAVL::findMin(sNode *p) const {
     string rc = p->text;
 
     //returns the minimum value in the subtree
@@ -88,8 +88,7 @@ bool sAVL::insert(sNode *&p, string text) {
         bal(p);
         p->h = calcHeight(p);
     }
-    //calculate the new height of p and balance p
-    p->h = calcHeight(p);
+    //balance p
     bal(p);
 
     return rc;
@@ -125,11 +124,8 @@ bool sAVL::remove(sNode *&p, string text) {
         }
     }
     
-    //calculate the new height of p and balance p
-    if (p) {
-        p->h = calcHeight(p);
-        bal(p);
-    }
+    //balance p
+    bal(p);
 
     return rc;
 }
@@ -220,7 +216,7 @@ void sAVL::bal(sNode *&p1) {
         if (diff == 2) {
             //Left heavy - rotoate right
             diff = height(p1->left->left) - height(p1->left->right);
-            if (diff == 0) {
+            if (diff < 0) {
                 //Left-right heavy - rotate left then rotate right
                 rotateLeft(p1->left);
             }
@@ -241,7 +237,7 @@ void sAVL::bal(sNode *&p1) {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-int sAVL::height(sNode *p) {
+int sAVL::height(sNode *p) const {
     //return the height of p
     //return 0 if p is NULL
     int rc = 0;
@@ -255,7 +251,7 @@ int sAVL::height(sNode *p) {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-int sAVL::calcHeight(sNode *p) {
+int sAVL::calcHeight(sNode *p) const {
     //compare the height of the left child and the height of the right child
     //add 1 to the larger number for own height
     return max(height(p->left), height(p->right)) + 1;

@@ -40,7 +40,7 @@ Monday was NOT removed
 Delete Count is 5
 Tree count is 44517
 
-Checing for text from: p5IsIn_2.txt
+Checking for text from: p5IsIn_2.txt
 isIn reports this is in the list: Jesus
 isIn reports this is in the list: Mary
 isIn reports this is in the list: Joseph

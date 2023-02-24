@@ -37,7 +37,7 @@ class sAVL {
 
         //returns the minimum value in the subtree
         //whose root node is pointed to by ptr
-        std::string findMin(sNode *p);
+        std::string findMin(sNode *p) const;
 
         //recursion helpers
         bool insert(sNode *&p, std::string text);
@@ -57,12 +57,12 @@ class sAVL {
 
         //returns the height of p if it is real
         //otherwise 0 if it is NULL
-        int height(sNode *p);
+        int height(sNode *p) const;
 
         ////return the calculation of p's height
         //based on the height of its children
         //this is not a recursive call
-        int calcHeight(sNode *p);
+        int calcHeight(sNode *p) const;
 
     public:
         //constructor that causes object to be initialized

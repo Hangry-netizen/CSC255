@@ -36,7 +36,7 @@ At 7 the string is stu: height = 3
 At 8 the string is vwx: height = 2
 At 9 the string is yz0: height = 1
 
-Checing for text from: p5IsIn_1.txt
+Checking for text from: p5IsIn_1.txt
 isIn reports this is in the list: def
 isIn reports this is NOT in the list: ghi
 isIn reports this is in the list: jkl
