@@ -2,7 +2,7 @@
 * Joseph Song
 * Queena Lee
 * CSC255 Spring 2023
-* Assignment: Program 6a
+* Assignment: Program 6b
 */
 
 #ifndef __P6_H
