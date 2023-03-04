@@ -1,0 +1,149 @@
+n = 20
+***********************************************************
+The time to do the bubbleSort was: 0.0012ms
+The list is sorted
+printIt with list size: 20 capacity = 20
+At pos 0 there is 78705
+At pos 1 there is 118330
+At pos 2 there is 137366
+At pos 3 there is 158119
+At pos 4 there is 216262
+At pos 5 there is 268351
+At pos 6 there is 349752
+At pos 7 there is 377743
+At pos 8 there is 391529
+At pos 9 there is 417256
+At pos 10 there is 475508
+At pos 11 there is 546393
+At pos 12 there is 669700
+At pos 13 there is 699711
+At pos 14 there is 754108
+At pos 15 there is 765933
+At pos 16 there is 772843
+At pos 17 there is 887256
+At pos 18 there is 932169
+At pos 19 there is 957932
+***********************************************************
+The time to do the selectionSort was: 0.0009ms
+The list is sorted
+printIt with list size: 20 capacity = 20
+At pos 0 there is 78705
+At pos 1 there is 118330
+At pos 2 there is 137366
+At pos 3 there is 158119
+At pos 4 there is 216262
+At pos 5 there is 268351
+At pos 6 there is 349752
+At pos 7 there is 377743
+At pos 8 there is 391529
+At pos 9 there is 417256
+At pos 10 there is 475508
+At pos 11 there is 546393
+At pos 12 there is 669700
+At pos 13 there is 699711
+At pos 14 there is 754108
+At pos 15 there is 765933
+At pos 16 there is 772843
+At pos 17 there is 887256
+At pos 18 there is 932169
+At pos 19 there is 957932
+***********************************************************
+The time to do the insertionSort was: 0.0005ms
+The list is sorted
+printIt with list size: 20 capacity = 20
+At pos 0 there is 78705
+At pos 1 there is 118330
+At pos 2 there is 137366
+At pos 3 there is 158119
+At pos 4 there is 216262
+At pos 5 there is 268351
+At pos 6 there is 349752
+At pos 7 there is 377743
+At pos 8 there is 391529
+At pos 9 there is 417256
+At pos 10 there is 475508
+At pos 11 there is 546393
+At pos 12 there is 669700
+At pos 13 there is 699711
+At pos 14 there is 754108
+At pos 15 there is 765933
+At pos 16 there is 772843
+At pos 17 there is 887256
+At pos 18 there is 932169
+At pos 19 there is 957932
+n = 20000
+***********************************************************
+The time to do the bubbleSort was: 884.059ms
+The list is sorted
+printIt with list size: 20000 capacity = 20000
+At pos 0 there is 29
+At pos 1 there is 255
+At pos 2 there is 347
+At pos 3 there is 369
+At pos 4 there is 438
+At pos 5 there is 504
+At pos 6 there is 513
+At pos 7 there is 513
+At pos 8 there is 587
+At pos 9 there is 618
+At pos 10 there is 666
+At pos 11 there is 684
+At pos 12 there is 811
+At pos 13 there is 814
+At pos 14 there is 874
+At pos 15 there is 1032
+At pos 16 there is 1175
+At pos 17 there is 1186
+At pos 18 there is 1200
+At pos 19 there is 1232
+At pos 19999 there is 999977
+***********************************************************
+The time to do the selectionSort was: 309.399ms
+The list is sorted
+printIt with list size: 20000 capacity = 20000
+At pos 0 there is 29
+At pos 1 there is 255
+At pos 2 there is 347
+At pos 3 there is 369
+At pos 4 there is 438
+At pos 5 there is 504
+At pos 6 there is 513
+At pos 7 there is 513
+At pos 8 there is 587
+At pos 9 there is 618
+At pos 10 there is 666
+At pos 11 there is 684
+At pos 12 there is 811
+At pos 13 there is 814
+At pos 14 there is 874
+At pos 15 there is 1032
+At pos 16 there is 1175
+At pos 17 there is 1186
+At pos 18 there is 1200
+At pos 19 there is 1232
+At pos 19999 there is 999977
+***********************************************************
+The time to do the insertionSort was: 196.633ms
+The list is sorted
+printIt with list size: 20000 capacity = 20000
+At pos 0 there is 29
+At pos 1 there is 255
+At pos 2 there is 347
+At pos 3 there is 369
+At pos 4 there is 438
+At pos 5 there is 504
+At pos 6 there is 513
+At pos 7 there is 513
+At pos 8 there is 587
+At pos 9 there is 618
+At pos 10 there is 666
+At pos 11 there is 684
+At pos 12 there is 811
+At pos 13 there is 814
+At pos 14 there is 874
+At pos 15 there is 1032
+At pos 16 there is 1175
+At pos 17 there is 1186
+At pos 18 there is 1200
+At pos 19 there is 1232
+At pos 19999 there is 999977
