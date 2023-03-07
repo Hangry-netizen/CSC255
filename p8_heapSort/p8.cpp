@@ -2,12 +2,12 @@
 * Joseph Song
 * Queena Lee
 * CSC255 Spring 2023
-* Assignment: Program 7
+* Assignment: Program 8
 */
 
 #include <iostream>
 
-#include "p7.h"
+#include "p8.h"
 
 using namespace std;
 
@@ -28,6 +28,59 @@ intList::~intList() {
         delete[] a;
         a = NULL;
     }
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+void intList::heapify(int index) {
+    // perform the heap heapify operation
+    if (heapSize) {
+        // if queue exists, get the larger entry between index and its children
+        int larger = index;
+        int l = left(index);
+        int r = right(index);
+
+        if (l < heapSize) {
+            if (a[l] > a[larger]) {
+                larger = l;
+            }
+            if (r < heapSize) {
+                if (a[r] > a[larger]) {
+                    larger = r;
+                }
+            }
+        } 
+
+        // if index has a child that is larger than itself and swap them
+        // recurse function until tree satisfies the properties of a maxHeap
+        if (index != larger) {
+            swap(a[index], a[larger]);
+            heapify(larger);
+        }  
+    }
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+void intList::swap(int &x, int &y) {
+    // swap two integers with each other
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+int intList::left(int index) const {
+    // return the index of the left child of the given index
+    return (2*index) + 1;
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+int intList::right(int index) const {
+    // return the index of the right child of the given index
+    return 2*(index + 1);
 }
 
 //******************************************************************************
@@ -117,6 +170,7 @@ void intList::clear() {
 // Joseph Song & Queena Lee
 void intList::printIt(int n) const {
     // for each entry in a, print its index and value
+
     cout << "printIt with list size: " << n << " capacity = "
     << listCapacity << endl;
     
@@ -129,8 +183,7 @@ void intList::printIt(int n) const {
     }
 
     if (n < listSize) {
-        std::cout << "At pos " << listSize-1 << " there is "
-        << a[listSize-1] << "\n";
+        std::cout << "At pos " << listSize-1 << " there is " << a[listSize-1] << "\n";
     }
 }
 
@@ -184,11 +237,11 @@ int intList::capacity() const {
 
 //******************************************************************************
 // Joseph Song & Queena Lee
-void swap(int *x, int *y) {
+void swap(int &x, int &y) {
     //swap two given integers
-    int temp = *x;
-    *x = *y;
-    *y = temp;
+    int temp = x;
+    x = y;
+    y = temp;
 }
 
 //******************************************************************************
@@ -203,13 +256,12 @@ void intList::bubbleSort() {
             //if i is larger than its right, swap them
             //until i is smaller than its right or i is at the end of the limit
             if (a[i] > a[i+1]) {
-                swap(&a[i],&a[i+1]);
+                swap(a[i],a[i+1]);
                 isSwapped = true;
             }
         }
         if (!isSwapped) {
-            //if no swap has been made in a stage
-            //the list is already in order
+            //if no swap has been made in a stage, the list is already in order
             break;
         }
     }
@@ -230,9 +282,7 @@ void intList::selectionSort() {
         }
         if (limit != min) {
             //set the min value found at each stage to the limit index
-            int temp = a[limit];
-            a[limit] = a[min];
-            a[min] = temp;
+            swap(a[limit], a[min]);
         }
     }
 }
@@ -274,4 +324,36 @@ bool intList::isSorted() const {
         }
     }
     return rc;
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+void intList::buildHeap() {
+    //cause a heap to be build from the list
+    
+    //set heapSize as the same as listSize
+    //get the index of the last parent
+    heapSize = listSize;
+    int lastParent = (heapSize/2) - 1;
+
+    for (int i = lastParent; i >= 0; i--) {
+        //heapify starting from the last parent
+        heapify(i);
+    }
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+void intList::heapSort(){
+    //cause heap to be sorted
+
+    //build heap from the list
+    buildHeap();
+
+    while (heapSize) {
+        //sort each entry in the heap
+        swap(a[0], a[heapSize-1]);
+        heapSize--;
+        heapify(0);
+    }
 }
