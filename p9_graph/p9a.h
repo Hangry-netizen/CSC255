@@ -45,7 +45,6 @@ class Graph {
 
         // Deletes the array "a"
         ~Graph();
-//******************************************************************************
 
         // Creates the node labeled by the parameter
         // returns true if the label is not already used and
