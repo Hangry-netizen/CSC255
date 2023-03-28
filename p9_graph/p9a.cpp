@@ -292,7 +292,7 @@ void Graph::printIt() const {
     cout << "Degree table (in, out)\n";
 
     for (r = 0; r < vCount; r++) {
-        // for vertex, print its inDegree and outDegree
+        // for each vertex, print its inDegree and outDegree
 	    cout << "  Node(" << r << "," << labels->readAt(r) << "):";
 	    cout << " " << inDegree(labels->readAt(r)) << ", ";
         cout << outDegree(labels->readAt(r)) << endl;
