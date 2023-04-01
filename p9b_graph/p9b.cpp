@@ -96,9 +96,9 @@ int dGraph::vidToLabel(int vid) const{
 // Joseph Song & Queena Lee
 bool dGraph::createV(int label) {
     // create the node labeled by the parameter
-    bool rc = isV(label);
+    bool rc = !isV(label);
 
-    if (!rc) {
+    if (rc) {
         // if node is not already used
         rc = labels->add(label);
 
@@ -286,18 +286,19 @@ void dGraph::printIt() const {
     cout << "  eCount = " << sizeE() << endl;
     cout << "\nGraph contents:\n";
     for (r = 0; r < sizeV(); r++) {
-	cout << "  Node(" << r << "," << labels->readAt(r) << "):";
-	for (c = 0; c < sizeV(); c++) {
-	    cout << " " << a[ind(r,c)];
-	}
-	cout << endl;
+        cout << "  Node(" << r << "," << labels->readAt(r) << "):";
+        for (c = 0; c < sizeV(); c++) {
+                cout << " " << a[ind(r,c)];
+        }
+	    cout << endl;
     }
 
     cout << "Degree table (in, out)\n";
 
     for (r = 0; r < sizeV(); r++) {
-	cout << "  Node(" << r << "," << labels->readAt(r) << "):";
-	cout << " " << inDegree(labels->readAt(r)) << ", " << outDegree(labels->readAt(r)) << endl;
+	    cout << "  Node(" << r << "," << labels->readAt(r) << "):";
+        cout << " " << inDegree(labels->readAt(r)) << ", ";
+        cout << outDegree(labels->readAt(r)) << endl;
     }
 }
 
@@ -305,20 +306,44 @@ void dGraph::printIt() const {
 //******************************************************************************
 // Joseph Song & Queena Lee
 void dGraph::bfPrint(int label) const{
+    q->clear();
+    q->enq(label);
+    bool rc = false;
     int num = 0;
-    for (int i = 0; i < vCount; i++){
-        if(isPath(label, vidToLabel(i))){
-            cout << "       Item " << num++ << " is" << "(" << i << ", ";
-            cout << vidToLabel(i) << ")" << endl;
+
+    bool* visited = new bool[vCount];
+    for (int i = 0; i < n; i++) {
+        visited[i] = false;
+    }
+
+    if(isV(label)){
+        cout << "       Item " << num++ << " is" << "(" << labelToVid(label) << ", ";
+        cout << label << ")" << endl;
+    }
+
+    while(q->count() > 0) {
+        int v;
+        q->deq(v);
+
+        if (!visited[labelToVid(v)]) {
+            visited[labelToVid(v)] = true;
+            for (int i = 0; i < vCount; i++) {
+                if (isEdge(v, vidToLabel(i))) {
+                    if (!visited[i]) {
+                        q->enq(vidToLabel(i));
+                        cout << "       Item " << num++ << " is" << "(" << i << ", ";
+                        cout << vidToLabel(i) << ")" << endl;
+                    } 
+                }
+            }
         }
     }
-    
+
 }
 
 //******************************************************************************
 // Joseph Song & Queena Lee
 bool dGraph::isPath(int ulabel, int vlabel) const{
-    // Enqueue 
     q->clear();
     q->enq(ulabel);
     bool rc = false;
@@ -357,9 +382,11 @@ void dGraph::printPaths() const{
     for (int i = 0; i < vCount; i++) {
         for (int j = 0; j < vCount; j++) {
             if (isPath(vidToLabel(i), vidToLabel(j))) {
-                cout << vidToLabel(i) << " does have a path to " << vidToLabel(j) << endl;
+                cout << vidToLabel(i) << " does have a path to ";
+                cout << vidToLabel(j) << endl;
             } else {
-                cout << vidToLabel(i) << " does not have a path to " << vidToLabel(j) << endl;
+                cout << vidToLabel(i) << " does not have a path to ";
+                cout << vidToLabel(j) << endl;
             }
         }
     }
