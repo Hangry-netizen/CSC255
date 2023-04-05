@@ -8,17 +8,17 @@
 #include <iostream>
 #include <fstream>
 
-#include "p3.h"
+#include "cil.h"
 
 using namespace std;
 
 //******************************************************************************
 //Queena Lee
-cStringList::cStringList(int listCapacity) {
+cIntList::cIntList(int listCapacity) {
     //constructor that causes array to be sized at listCapacity entries
     //with a default capacity of 100
     //initialize listCount, first, and last to 0
-    a = new std::string[listCapacity];
+    a = new int[listCapacity];
     this->listCapacity = listCapacity;
     listCount = 0;
     first = last = 0;
@@ -26,7 +26,7 @@ cStringList::cStringList(int listCapacity) {
 
 //******************************************************************************
 //Queena Lee
-cStringList::~cStringList() {
+cIntList::~cIntList() {
     if (a != 0) {
         //if array exists, delete the dynamically allocated array
         delete[] a;
@@ -36,7 +36,7 @@ cStringList::~cStringList() {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-void cStringList::incVal(int &value) {
+void cIntList::incVal(int &value) {
     //increment index value
     value = value + 1;
     value = value % listCapacity;
@@ -44,7 +44,7 @@ void cStringList::incVal(int &value) {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-void cStringList::decVal(int &value) {
+void cIntList::decVal(int &value) {
     //decrement index value
     value = value - 1;
     if (value < 0) {
@@ -54,7 +54,7 @@ void cStringList::decVal(int &value) {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-bool cStringList::insert(std::string text) {
+bool cIntList::insert(int text) {
     bool rc = listCount < listCapacity;
 
     if (rc) {
@@ -74,7 +74,7 @@ bool cStringList::insert(std::string text) {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-bool cStringList::add(std::string text) {
+bool cIntList::add(int text) {
     bool rc = listCount < listCapacity;
 
     if (rc) {
@@ -94,11 +94,11 @@ bool cStringList::add(std::string text) {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-bool cStringList::insertAt(int userIndex, std::string text) {
+bool cIntList::insertAt(int userIndex, int text) {
     bool rc = (listCount < listCapacity) && (userIndex <= listCount) && (userIndex >= 0);
     int pIndex = last;
     int ind;
-    string t;
+    int t;
 
     if (rc) {
         if (userIndex == 0){
@@ -130,7 +130,7 @@ bool cStringList::insertAt(int userIndex, std::string text) {
 
 //******************************************************************************
 //Joseph Song
-bool cStringList::deleteAt(int index, std::string &text) {
+bool cIntList::deleteAt(int index, int &text) {
     // If the index is not within listCount, it returns false.
     bool rc = (index < listCount) && (index >= 0);
     // pIndex moves from first to last 
@@ -173,7 +173,7 @@ bool cStringList::deleteAt(int index, std::string &text) {
 
 //******************************************************************************
 //Joseph Song
-bool cStringList::readAt(int index, std::string &text) const {
+bool cIntList::readAt(int index, int &text) const {
     bool rc = false;
     int pIndex = first;
 
@@ -195,7 +195,7 @@ bool cStringList::readAt(int index, std::string &text) const {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-bool cStringList::deleteFirst(std::string &text) {
+bool cIntList::deleteFirst(int &text) {
     bool rc = listCount;
 
     if (rc) {
@@ -217,7 +217,7 @@ bool cStringList::deleteFirst(std::string &text) {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-bool cStringList::deleteLast(std::string &text) {
+bool cIntList::deleteLast(int &text) {
     bool rc = listCount;
 
     if (rc) {
@@ -239,7 +239,7 @@ bool cStringList::deleteLast(std::string &text) {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-void cStringList::clear() {
+void cIntList::clear() {
     //causes the list to be emptied
     listCount = 0; 
     first = last = 0;
@@ -247,14 +247,14 @@ void cStringList::clear() {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-int cStringList::count() const {
+int cIntList::count() const {
     //return the number of entries in the list
     return listCount;
 }
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-int cStringList::getIndex(std::string text) const {
+int cIntList::getIndex(int text) const {
     int rc = -1;
     int index = first;
 
@@ -274,12 +274,12 @@ int cStringList::getIndex(std::string text) const {
 
 //******************************************************************************
 //Joseph Song & Queena Lee
-void cStringList::printIt() const {
+void cIntList::printIt() const {
     int index = first;
     
     //print the index (from the user's perspective) and text of each entry
     for (int userIndex = 0; userIndex < listCount; userIndex++) {
-        cout << "At pos " << userIndex << " there is " << a[index] <<endl;
+        cout << "Queue item " << userIndex << " = " << a[index] <<endl;
 
         index = index + 1;
         index = index % listCapacity;

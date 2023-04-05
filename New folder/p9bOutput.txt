@@ -1,0 +1,205 @@
+createV(88) returned: True
+createV(44) returned: True
+addEdge(50,10,1) returned: True
+addEdge(10,15,1) returned: True
+addEdge(25,10,2) returned: True
+addEdge(33,50,2) returned: True
+addEdge(19,33,2) returned: True
+addEdge(14,19,2) returned: True
+addEdge(50,14,2) returned: True
+addEdge(14,14,2) returned: True
+addEdge(88,44,2) returned: True
+addEdge(88,14,1) returned: True
+addEdge(44,19,1) returned: True
+addEdge(50,33,1) returned: True
+addEdge(10,25,1) returned: True
+addEdge(15,15,1) returned: True
+addEdge(25,10,1) returned: False
+addEdge(33,50,1) returned: False
+addEdge(19,44,1) returned: True
+addEdge(14,88,1) returned: True
+addEdge(14,88,2) returned: False
+deleteEdge(14,19) returned: True
+deleteEdge(22,19) returned: False
+createV(50) returned: False
+addEdge(99,99,0) returned: False
+Graph info:
+  Graph size = 40
+  vCount = 9
+  eCount = 15
+
+Graph contents:
+  Node(0,88): 0 2 0 0 0 0 0 0 1
+  Node(1,44): 0 0 0 0 0 0 0 1 0
+  Node(2,50): 0 0 0 1 0 0 1 0 2
+  Node(3,10): 0 0 0 0 1 1 0 0 0
+  Node(4,15): 0 0 0 0 1 0 0 0 0
+  Node(5,25): 0 0 0 2 0 0 0 0 0
+  Node(6,33): 0 0 2 0 0 0 0 0 0
+  Node(7,19): 0 1 0 0 0 0 2 0 0
+  Node(8,14): 1 0 0 0 0 0 0 0 2
+Degree table (in, out)
+  Node(0,88): 1, 2
+  Node(1,44): 2, 1
+  Node(2,50): 1, 3
+  Node(3,10): 2, 2
+  Node(4,15): 2, 1
+  Node(5,25): 1, 1
+  Node(6,33): 2, 1
+  Node(7,19): 1, 2
+  Node(8,14): 3, 2
+88 does have a path to 88
+88 does have a path to 44
+88 does have a path to 50
+88 does have a path to 10
+88 does have a path to 15
+88 does have a path to 25
+88 does have a path to 33
+88 does have a path to 19
+88 does have a path to 14
+44 does have a path to 88
+44 does have a path to 44
+44 does have a path to 50
+44 does have a path to 10
+44 does have a path to 15
+44 does have a path to 25
+44 does have a path to 33
+44 does have a path to 19
+44 does have a path to 14
+50 does have a path to 88
+50 does have a path to 44
+50 does have a path to 50
+50 does have a path to 10
+50 does have a path to 15
+50 does have a path to 25
+50 does have a path to 33
+50 does have a path to 19
+50 does have a path to 14
+10 does not have a path to 88
+10 does not have a path to 44
+10 does not have a path to 50
+10 does have a path to 10
+10 does have a path to 15
+10 does have a path to 25
+10 does not have a path to 33
+10 does not have a path to 19
+10 does not have a path to 14
+15 does not have a path to 88
+15 does not have a path to 44
+15 does not have a path to 50
+15 does not have a path to 10
+15 does have a path to 15
+15 does not have a path to 25
+15 does not have a path to 33
+15 does not have a path to 19
+15 does not have a path to 14
+25 does not have a path to 88
+25 does not have a path to 44
+25 does not have a path to 50
+25 does have a path to 10
+25 does have a path to 15
+25 does have a path to 25
+25 does not have a path to 33
+25 does not have a path to 19
+25 does not have a path to 14
+33 does have a path to 88
+33 does have a path to 44
+33 does have a path to 50
+33 does have a path to 10
+33 does have a path to 15
+33 does have a path to 25
+33 does have a path to 33
+33 does have a path to 19
+33 does have a path to 14
+19 does have a path to 88
+19 does have a path to 44
+19 does have a path to 50
+19 does have a path to 10
+19 does have a path to 15
+19 does have a path to 25
+19 does have a path to 33
+19 does have a path to 19
+19 does have a path to 14
+14 does have a path to 88
+14 does have a path to 44
+14 does have a path to 50
+14 does have a path to 10
+14 does have a path to 15
+14 does have a path to 25
+14 does have a path to 33
+14 does have a path to 19
+14 does have a path to 14
+*** start of bfPrint() output
+   Printing from 88
+       Item 0 is (0,88)
+       Item 1 is (1,44)
+       Item 2 is (8,14)
+       Item 3 is (7,19)
+       Item 4 is (6,33)
+       Item 5 is (2,50)
+       Item 6 is (3,10)
+       Item 7 is (4,15)
+       Item 8 is (5,25)
+   Printing from 44
+       Item 0 is (1,44)
+       Item 1 is (7,19)
+       Item 2 is (6,33)
+       Item 3 is (2,50)
+       Item 4 is (3,10)
+       Item 5 is (8,14)
+       Item 6 is (4,15)
+       Item 7 is (5,25)
+       Item 8 is (0,88)
+   Printing from 50
+       Item 0 is (2,50)
+       Item 1 is (3,10)
+       Item 2 is (6,33)
+       Item 3 is (8,14)
+       Item 4 is (4,15)
+       Item 5 is (5,25)
+       Item 6 is (0,88)
+       Item 7 is (1,44)
+       Item 8 is (7,19)
+   Printing from 10
+       Item 0 is (3,10)
+       Item 1 is (4,15)
+       Item 2 is (5,25)
+   Printing from 25
+       Item 0 is (5,25)
+       Item 1 is (3,10)
+       Item 2 is (4,15)
+   Printing from 33
+       Item 0 is (6,33)
+       Item 1 is (2,50)
+       Item 2 is (3,10)
+       Item 3 is (8,14)
+       Item 4 is (4,15)
+       Item 5 is (5,25)
+       Item 6 is (0,88)
+       Item 7 is (1,44)
+       Item 8 is (7,19)
+   Printing from 19
+       Item 0 is (7,19)
+       Item 1 is (1,44)
+       Item 2 is (6,33)
+       Item 3 is (2,50)
+       Item 4 is (3,10)
+       Item 5 is (8,14)
+       Item 6 is (4,15)
+       Item 7 is (5,25)
+       Item 8 is (0,88)
+   Printing from 14
+       Item 0 is (8,14)
+       Item 1 is (0,88)
+       Item 2 is (1,44)
+       Item 3 is (7,19)
+       Item 4 is (6,33)
+       Item 5 is (2,50)
+       Item 6 is (3,10)
+       Item 7 is (4,15)
+       Item 8 is (5,25)
+   Printing from 15
+       Item 0 is (4,15)
+   Printing from 22
+   Printing from 99
+*** end of bfPrint() output

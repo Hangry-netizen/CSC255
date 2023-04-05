@@ -8,12 +8,11 @@
 #ifndef __P3_H
 #define __P3_H
 
-#include <string>
 
-class cStringList {
+class cIntList {
     private:
         // a pointer to the array into which the list values will be stored
-        std::string *a;
+        int *a;
 
         // memorialize the capacity of the list
         int listCapacity;
@@ -38,47 +37,47 @@ class cStringList {
         // constructor that causes the array to be sixed at "capacity" entries
         // has a default listCapacity of 100
         // setting listCount to 0 and first and last also to 0
-        cStringList(int listCapacity = 100);
+        cIntList(int listCapacity = 100);
 
         // deconstructor that deletes the dynamically allocated array "a"
-        ~cStringList();
+        ~cIntList();
         
-        // inserts text at the beginning of the list
+        // inserts value at the beginning of the list
         // all other entries shift right
-        // returns true if the text was inserted; otherwise, it returns false
-        bool insert(std::string text);
+        // returns true if the value was inserted; otherwise, it returns false
+        bool insert(int value);
         
-        // Inserts the given text at the end of the list
-        // returns true if the text was added; otherwise, it returns false
-        bool add(std::string text);
+        // Inserts the given value at the end of the list
+        // returns true if the value was added; otherwise, it returns false
+        bool add(int value);
         
-        // Inserts the given text at the index "index"
+        // Inserts the given value at the index "index"
         // values at that position need to shift right
-        // returns true if the text is inserted
+        // returns true if the value is inserted
         // returns false if the list was full
         //or if the index was greater than listCount
-        bool insertAt(int index, std::string text);
+        bool insertAt(int index, int value);
         
-        // Deletes the text at the given index
+        // Deletes the value at the given index
         // shifts the entries right of the index to the left.
         // if the index was within the range of the list
-        // it sets "text" to the value of the item deleted and returns true
-        // otherwise, it does not change "text" and returns false
-        bool deleteAt(int index, std::string &text);
+        // it sets "value" to the value of the item deleted and returns true
+        // otherwise, it does not change "value" and returns false
+        bool deleteAt(int index, int &value);
 
-        // Returns the text at the given index in the list
+        // Returns the value at the given index in the list
         // if the index is invalid, this returns -1
-        bool readAt(int index, std::string &text) const;
+        bool readAt(int index, int &value) const;
 
         // delete the first entry of the array
-        // behaves the same as deleteAt(0,text)
+        // behaves the same as deleteAt(0,value)
         // but it must be independently implemented
-        bool deleteFirst(std::string &text);
+        bool deleteFirst(int &value);
 
         // delete the first entry of the array
-        // behaves the same as deleteAt(listCount-1,text)
+        // behaves the same as deleteAt(listCount-1,value)
         // but it must be independently implemented
-        bool deleteLast(std::string &text);
+        bool deleteLast(int &value);
 
         // Causes the list to be emptied 
         void clear();
@@ -86,12 +85,12 @@ class cStringList {
         // Returns the number of entries in the list
         int count() const;
 
-        // Returns the first position at which text was found
+        // Returns the first position at which value was found
         // otherwise, returns -1
-        int getIndex(std::string text) const;
+        int getIndex(int value) const;
 
         // Causes the list to be printed, one value per line
-        // for each line, print the index and the text at that index 
+        // for each line, print the index and the value at that index 
         void printIt() const;
 };
 

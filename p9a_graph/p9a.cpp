@@ -198,7 +198,7 @@ bool Graph::isV(int label) const {
     // return true if there is a node labled by label
     bool rc = false;
 
-    if (labels->getIndex(label) != -1) {
+    if (labelToVid(label) != -1) {
         // if label exist in labels
         rc = true;
     }
