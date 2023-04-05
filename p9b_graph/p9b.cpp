@@ -281,18 +281,19 @@ void dGraph::printIt() const {
     cout << "  eCount = " << sizeE() << endl;
     cout << "\nGraph contents:\n";
     for (r = 0; r < sizeV(); r++) {
-	cout << "  Node(" << r << "," << labels->readAt(r) << "):";
-	for (c = 0; c < sizeV(); c++) {
-	    cout << " " << a[ind(r,c)];
-	}
-	cout << endl;
+        cout << "  Node(" << r << "," << labels->readAt(r) << "):";
+        for (c = 0; c < sizeV(); c++) {
+                cout << " " << a[ind(r,c)];
+        }
+	    cout << endl;
     }
 
     cout << "Degree table (in, out)\n";
 
     for (r = 0; r < sizeV(); r++) {
-	cout << "  Node(" << r << "," << labels->readAt(r) << "):";
-	cout << " " << inDegree(labels->readAt(r)) << ", " << outDegree(labels->readAt(r)) << endl;
+	    cout << "  Node(" << r << "," << labels->readAt(r) << "):";
+        cout << " " << inDegree(labels->readAt(r)) << ", ";
+        cout << outDegree(labels->readAt(r)) << endl;
     }
 }
 
@@ -398,7 +399,11 @@ void dGraph::printPaths() const{
             if (isPath(vidToLabel(i), vidToLabel(j))) {
                 cout << vidToLabel(i) << " does have a path to ";
                 cout << vidToLabel(j) << endl;
+                cout << vidToLabel(i) << " does have a path to ";
+                cout << vidToLabel(j) << endl;
             } else {
+                cout << vidToLabel(i) << " does not have a path to ";
+                cout << vidToLabel(j) << endl;
                 cout << vidToLabel(i) << " does not have a path to ";
                 cout << vidToLabel(j) << endl;
             }
