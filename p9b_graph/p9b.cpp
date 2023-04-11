@@ -2,7 +2,7 @@
 * Joseph Song
 * Queena Lee
 * CSC255 Spring 2023
-* Assignment: Program 9a
+* Assignment: Program 9b
 */
 
 #include <iostream>
@@ -18,8 +18,8 @@ dGraph::dGraph(int n, bool directed) {
     this->n = n;
     this->directed = directed;
     a = new int[n*n];
-    labels = new intList[n]; 
-    q = new iQ[n];
+    labels = new intList(n); 
+    q = new iQ(n);
     clear();
 }
 
@@ -32,7 +32,8 @@ dGraph::~dGraph() {
         delete[] a;
         a = NULL;
     }
-    delete[] labels;
+    delete labels;
+    delete q;
 }
 
 //******************************************************************************
@@ -304,42 +305,41 @@ void dGraph::bfPrint(int label) const {
     // print a breadth-frist traversal of the graph, starting at the given node
     bool rc = false;
     int item = 0;
+    int v;
+
 
     bool* visited = new bool[vCount];
     
     // initialize each entry in visited with false
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < vCount; i++) {
         visited[i] = false;
     }
+    
+    // ensure that q is clear
+    q->clear();
 
     if (isV(label)) {
-        // if the given starting node exists, enqueue and print node
-        q->enq(label);
-        cout << "       Item " << item++ << " is" << "(" << labelToVid(label) << ",";
-        cout << label << ")" << endl;
+        // if the given starting node exists, mark it visited, 
+        // enqueue the node and print node
+        q->enq(labelToVid(label));
+        visited[labelToVid(label)] = true;
     }
 
-    while(q->count() > 0) {
-        // if queue is not empty
-        int v;
-        q->deq(v);
-
-        if (!visited[labelToVid(v)]) {
-            // visit each neighbor of v that has not been visited
-            visited[labelToVid(v)] = true;
-            for (int i = 0; i < vCount; i++) {
-                // iterate through each vertex
-                if (isEdge(v, vidToLabel(i)) && !visited[i]) {
-                    // if vertex is a neighbor of v and has not been visited, 
-                    // enqueue vertex, mark vertex as visited, and print vertex
-                    q->enq(vidToLabel(i));
-                    cout << "       Item " << item++ << " is" << "(" << i << ",";
-                    cout << vidToLabel(i) << ")" << endl;
-                }
+    while(q->deq(v)) {
+        // print v
+        cout << "       Item " << item++ << " is" << "(" << v << ",";
+        cout << vidToLabel(v) << ")" << endl;
+        for (int i = 0; i < vCount; i++) {
+            if (isEdge(vidToLabel(v), vidToLabel(i)) && !visited[i]) {
+                // visit each neighbor of v that has not been visited,
+                // enqueue vertex and mark vertex as visited
+                q->enq(i);
+                visited[i] = true;
             }
         }
     }
 
+    delete[] visited;
 }
 
 //******************************************************************************
@@ -347,46 +347,38 @@ void dGraph::bfPrint(int label) const {
 bool dGraph::isPath(int ulabel, int vlabel) const {    
     // perform a breadth-frist traversal of the graph, starting at the given node
     bool rc = false;
+    int v;
 
     bool* visited = new bool[vCount];
 
     // initialize each entry in visited with false
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < vCount; i++) {
         visited[i] = false;
     }
 
+    q->clear();
     if (isV(ulabel)) {
         // if the given starting node exists, enqueue the node
-        q->enq(ulabel);
+        q->enq(labelToVid(ulabel));
     }
 
-    while(q->count() > 0) {
-        // if queue is not empty
-        int v;
-        q->deq(v);
+    while(q->deq(v)) {
+        if (visited[labelToVid(vlabel)]) {
+            // if vlabel has been visited, there is a path from u to v
+            rc = true;
+            break;
+        }
 
-        if (!visited[labelToVid(v)]) {
-            // visit each neighbor of v that has not been visited
-            visited[labelToVid(v)] = true;
-            for (int i = 0; i < vCount; i++) {
-                // iterate through each vertex
-                if (isEdge(v, vidToLabel(i))) {
-                    // if vertex is a neighbor of v and has not been visited, 
-                    // enqueue vertex
-                    if (!visited[i]) {
-                        q->enq(vidToLabel(i));
-                    } 
-                }
+        for (int i = 0; i < vCount; i++) {
+            if (isEdge(vidToLabel(v), vidToLabel(i)) && !visited[i]) {
+                // visit each neighbor of v that has not been visited
+                q->enq(i);
+                visited[i] = true;
             }
         }
-
-        if (visited[labelToVid(vlabel)]) {
-            // if vlabel has been visited
-            // it means a path has been found fron ulabel to vlabel
-            // therefore, set rc to true and break the loop
-            rc = true;
-        }
     }
+    
+    delete[] visited;
 
     return rc;
 }
@@ -399,11 +391,7 @@ void dGraph::printPaths() const{
             if (isPath(vidToLabel(i), vidToLabel(j))) {
                 cout << vidToLabel(i) << " does have a path to ";
                 cout << vidToLabel(j) << endl;
-                cout << vidToLabel(i) << " does have a path to ";
-                cout << vidToLabel(j) << endl;
             } else {
-                cout << vidToLabel(i) << " does not have a path to ";
-                cout << vidToLabel(j) << endl;
                 cout << vidToLabel(i) << " does not have a path to ";
                 cout << vidToLabel(j) << endl;
             }
