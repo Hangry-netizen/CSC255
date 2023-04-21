@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <iomanip>
 
 #include "p11.h"
 
@@ -70,16 +71,16 @@ int max(int x, int y) {
 // Joseph Song & Queena Lee
 int Graph::ind(int x, int y) const {
     // return the mapping of x,y to index
-    if (directed == false) {
-        // use least vertex id first for undirected graphs
-        if (y < x) {
-            int temp = x;
-            x = y;
-            y = temp;
-        }
+    int rc;
+
+    if (directed == true) {
+        rc = (x*n) + y;
+    } else {
+        // for undirected graphs, use least vertex id first
+        rc = x < y ? (x*n) + y : (y*n) + x;
     }
     
-    return (x*n) + y;
+    return rc;
 }
 
 //******************************************************************************
@@ -159,14 +160,16 @@ bool Graph::addEdge(int uLabel, int vLabel, int weight) {
 
 //******************************************************************************
 // Joseph Song & Queena Lee
-bool Graph::deleteEdge(int uLabel, int vLabel) {
+bool Graph::deleteEdge(int uLabel, int vLabel, int &weight) {
     // delete the edge if the edge exists
     bool rc = isEdge(uLabel, vLabel);
+    weight = -1;
 
     if (rc) {
         // if edge exists, delete the edge
         int uVid = labelToVid(uLabel);
         int vVid = labelToVid(vLabel);
+        weight = a[ind(uVid, vVid)];
         a[ind(uVid, vVid)] = 0;
         eCount--;
     }
@@ -301,17 +304,16 @@ bool Graph::isV(int label) const {
 //******************************************************************************
 // Joseph Song & Queena Lee
 int Graph::inDegree(int label) const {
-    // return inD of the node; -1 if the node does not exist
+    // return inD of the node
+    // return -1 if the graph is undirected or the node does not exist
     int rc = -1;
 
-    int vid = labelToVid(label);
-
-    if (vid != -1) {
-        // if vertice exists
+    if (directed && isV(label)) {
+        // if graph is direct and vertice exists
         rc = 0;
         for (int i = 0; i < n; i++) {
             // for each column of the vertice
-            if (a[ind(i,vid)] > 0) {
+            if (a[ind(i,labelToVid(label))] > 0) {
                 // if an edge exist, increment its inDegree
                 rc++;
             }
@@ -324,18 +326,40 @@ int Graph::inDegree(int label) const {
 //******************************************************************************
 // Joseph Song & Queena Lee
 int Graph::outDegree(int label) const {
-    // return outD of the node; -1 if the node does not exist
+    // return outD of the node
+    // return -1 if the graph is undirected or the node does not exist
     int rc = -1;
 
+    if (directed && isV(label)) {
+        // if graph is direct and vertice exists
+        rc = 0;
+        for (int i = 0; i < vCount; i++) {
+            // for each row of the vertice
+            if (a[ind(labelToVid(label),i)] > 0) {
+                // if an edge exists, increment its outDegree
+                rc++;
+            }
+        }
+    }
+
+    return rc;
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+int Graph::degree(int label) const {
+    // return the degree of the node
+    // return -1 if the graph is not undirected or the node does not exist
+
+    int rc = -1;
     int vid = labelToVid(label);
 
-    if (vid != -1) {
-        // if vertice exist
+    if (!directed && isV(label)) {
+        // if the graph is undirected and the node exists
         rc = 0;
-        for (int i = 0; i < n; i++) {
-            // for each row of the vertice
+        for (int i = 0; i < vCount; i++) {
             if (a[ind(vid,i)] > 0) {
-                // if an edge exist, increment its outDegree
+                // if an edge exists, increment its degree 
                 rc++;
             }
         }
@@ -360,6 +384,55 @@ int Graph::sizeE() const {
 
 //******************************************************************************
 // Joseph Song & Queena Lee
+bool Graph::isCyclicDirected() const {
+    // return true if a directed graph is cyclic
+    // otherwise, return false
+    bool rc = false;
+    int label;
+
+    for (int i = 0; i < vCount; i++) {
+        // for each node in the graph
+        label = vidToLabel(i);
+        if (isPath(label,label)) {
+            // if node has a path to itself, return true
+            rc = true;
+            break;
+        }
+    }
+
+    return rc;
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+bool Graph::isCyclicUndirected() const {
+    // return true if a undirected graph is cyclic
+    // otherwise, return false
+    bool rc = false;
+    int label;
+
+    for (int i = 0; i < vCount; i++) {
+        // for each node in the graph
+        label = vidToLabel(i);
+        if (!isEdge(label,label) && isPath(label,label)) {
+            // if node has a path to itself and it's not a loop, return true
+            rc = true;
+            break;
+        }
+    }
+
+    return rc;
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
+bool Graph::isCyclic() const {
+    // return whether the graph is cyclic
+    return directed ? isCyclicDirected() : isCyclicUndirected();
+}
+
+//******************************************************************************
+// Joseph Song & Queena Lee
 void Graph::printIt() const {
     int r, c;
 
@@ -371,16 +444,17 @@ void Graph::printIt() const {
     for (r = 0; r < sizeV(); r++) {
         cout << "  Node(" << r << "," << labels->readAt(r) << "):";
         for (c = 0; c < sizeV(); c++) {
-                cout << " " << a[ind(r,c)];
+            cout << setw(3) << a[(r*n)+c];
         }
 	    cout << endl;
     }
 
-    cout << "Degree table (in, out)\n";
+    cout << "Degree table (normal, in, out)\n";
 
     for (r = 0; r < sizeV(); r++) {
 	    cout << "  Node(" << r << "," << labels->readAt(r) << "):";
-        cout << " " << inDegree(labels->readAt(r)) << ", ";
+        cout << setw(6) << degree(labels->readAt(r)) << ", ";
+        cout << inDegree(labels->readAt(r)) << ", ";
         cout << outDegree(labels->readAt(r)) << endl;
     }
 }

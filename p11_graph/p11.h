@@ -50,9 +50,19 @@ class Graph {
         
         // Remembers whether the graph is directed or not
         bool directed;
+
+        // Populates lambda with the distance from node s to all other nodes
+        // note that s is an index, not a label
+        void dijkstra(int s);
+
+        // Returns true with minV set to the minimum value node in Y
+        // if at least one node is in Y
+        // Otherwise, returns false with minV set to -1 if no node is in Y
+        bool minLambdaY(int &minY);
+
         
         // Returns the mapping of x,y to index
-        // uses least vertex id first for undirected grapghs
+        // uses least vertex id first for undirected graphs
         int ind(int x, int y) const;
 
         // Returns the vertex id for the given label
@@ -63,14 +73,13 @@ class Graph {
         // returns -1 if no nodes has that vertex id
         int vidToLabel(int vid) const;
 
-        // Populates lambda with the distance from node s to all other nodes
-        // note that s is an index, not a label
-        void dijkstra(int s);
+        // Returns true if a directed graph is cyclic
+        // it need not verify to see if the graph is directed
+        bool isCyclicDirected() const;
 
-        // Returns true with minV set to the minimum value node in Y
-        // if at least one node is in Y
-        // Otherwise, returns false with minV set to -1 if no node is in Y
-        bool minLambdaY(int &minY);
+        // Returns true if an undirected graph is cyclic
+        // it need not verify to see if the graph is undirected
+        bool isCyclicUndirected() const;
         
     public:
         // Sets up the empty graph
@@ -95,7 +104,7 @@ class Graph {
         // returns true if it deletes it
         // returns false if the edge was already deleted
         // returns false if the labels didn't match existing nodes
-        bool deleteEdge(int uLabel, int vLabel);
+        bool deleteEdge(int uLabel, int vLabel, int &weight);
 
         // Returns true if sLabel and dLabel are both valid labels of real nodes
         // it will also return the distance from node sLabel to node dLabel
@@ -114,17 +123,26 @@ class Graph {
         // Return true if there is a node labeled by label
         bool isV(int label) const;
 
-        // Return inD of the node; -1 if the node does not exist
+        // Returns the inD of the node
+        // returns -1 if the graph is undirected or the node does not exist
         int inDegree(int label) const;
 
-        // Return outD of the node; -1 if the node does not exist
+        // Returns the outD of the node
+        // returns -1 if the graph is undirected or the node does not exist
         int outDegree(int label) const;
+
+        // Returns the degree of the node
+        // returns -1 if the graph is not undirected or the node does not exist
+        int degree(int label) const;
 
         // Returns the number of nodes actually used, vCount
         int sizeV() const;
 
         // Returns the number of edges in the graph, eCount
         int sizeE() const;
+
+        // Returns whether the graph is cyclic
+        bool isCyclic() const;
 
         // Prints the graph; see sample output for proper format
         void printIt() const;
