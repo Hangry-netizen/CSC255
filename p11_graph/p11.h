@@ -75,11 +75,11 @@ class Graph {
 
         // Returns true if a directed graph is cyclic
         // it need not verify to see if the graph is directed
-        bool isCyclicDirected() const;
+        bool isCyclicDirected();
 
         // Returns true if an undirected graph is cyclic
         // it need not verify to see if the graph is undirected
-        bool isCyclicUndirected() const;
+        bool isCyclicUndirected();
         
     public:
         // Sets up the empty graph
@@ -142,7 +142,7 @@ class Graph {
         int sizeE() const;
 
         // Returns whether the graph is cyclic
-        bool isCyclic() const;
+        bool isCyclic();
 
         // Prints the graph; see sample output for proper format
         void printIt() const;

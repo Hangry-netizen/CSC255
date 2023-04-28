@@ -384,7 +384,7 @@ int Graph::sizeE() const {
 
 //******************************************************************************
 // Joseph Song & Queena Lee
-bool Graph::isCyclicDirected() const {
+bool Graph::isCyclicDirected() {
     // return true if a directed graph is cyclic
     // otherwise, return false
     bool rc = false;
@@ -405,18 +405,26 @@ bool Graph::isCyclicDirected() const {
 
 //******************************************************************************
 // Joseph Song & Queena Lee
-bool Graph::isCyclicUndirected() const {
+bool Graph::isCyclicUndirected() {
     // return true if a undirected graph is cyclic
     // otherwise, return false
     bool rc = false;
-    int label;
+    int uLabel, vLabel, weight;
 
     for (int i = 0; i < vCount; i++) {
-        // for each node in the graph
-        label = vidToLabel(i);
-        if (!isEdge(label,label) && isPath(label,label)) {
-            // if node has a path to itself and it's not a loop, return true
-            rc = true;
+        uLabel = vidToLabel(i);
+        for (int j = 0; j < vCount; j++) {
+            vLabel = vidToLabel(j);
+            if (isEdge(uLabel,vLabel)) {
+                deleteEdge(uLabel,vLabel,weight);
+                rc = isPath(vLabel,uLabel) ? true : false;
+                addEdge(uLabel,vLabel,weight);
+            }
+            if (rc) {
+                break;
+            }
+        }
+        if (rc) {
             break;
         }
     }
@@ -426,7 +434,7 @@ bool Graph::isCyclicUndirected() const {
 
 //******************************************************************************
 // Joseph Song & Queena Lee
-bool Graph::isCyclic() const {
+bool Graph::isCyclic() {
     // return whether the graph is cyclic
     return directed ? isCyclicDirected() : isCyclicUndirected();
 }
