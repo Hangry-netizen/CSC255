@@ -192,7 +192,7 @@ void Graph::dijkstra(int s) {
         w = a[(ind(s,i))];
         // if path exists from source node to node
         // set the weight of the path in lambda 
-        // otherswise, set lambda to infinite
+        // otherwise, set lambda to infinite
         lambda[i] = w ? w : INFINITE;
     }
 
